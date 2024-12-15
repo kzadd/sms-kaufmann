@@ -1,0 +1,79 @@
+# Coverage reports and testing
+coverage/
+
+# ESLint and Prettier cache
+.eslintcache
+.prettiercache
+
+# Editor-specific files and directories
+*.launch
+*.njsproj
+*.ntvs*
+*.sln
+*.sublime-workspace
+*.suo
+*.sw?
+.idea/
+.vscode/
+
+# Environment variables
+*.local
+.env
+
+# Ignore .vscode except specific configurations
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Ignore Angular service worker files
+ngsw-config.json
+ngsw-worker.js
+safety-worker.js
+worker-basic.min.js
+
+# Ignore build directories
+.angular/
+.sass-cache/
+bazel-out/
+build/
+dist-ssr/
+dist/
+node_modules/
+out-tsc/
+typings/
+
+# Ignore generated Angular files
+*.generated.ts
+
+# Ignore temporary files
+*.backup
+*.bak
+*.old
+*.orig
+*.swp
+*.temp
+*.tmp
+
+# Logs and debug files
+*.log
+lerna-debug.log*
+logs/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# MacOS specific files
+.DS_Store
+
+# OS-specific files
+Thumbs.db
+
+# Optional lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# TypeScript specific
+*.tsbuildinfo

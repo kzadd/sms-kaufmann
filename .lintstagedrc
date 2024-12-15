@@ -1,0 +1,5 @@
+{
+  "**/*.test.{js,ts}": "ng test",
+  "*.{html,scss}": ["prettier --write"],
+  "*.{js,ts}": ["prettier --write", "eslint"]
+}

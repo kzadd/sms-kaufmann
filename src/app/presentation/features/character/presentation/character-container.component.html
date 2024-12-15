@@ -1,0 +1,21 @@
+@let characters = characters$();
+@let error = error$();
+@let loading = loading$();
+
+@if (loading) {
+  <div>Loading...</div>
+}
+
+@if (!loading && error) {
+  <div>Error: {{ error?.reason }}</div>
+}
+
+@if (!error && !loading && !characters?.length) {
+  <div>Sin datos</div>
+}
+
+@if (!error && !loading && !!characters?.length) {
+  @for (item of characters!; track item.id) {
+    <div>{{ item.name }}</div>
+  }
+}
