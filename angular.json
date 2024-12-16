@@ -18,6 +18,9 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ],
+              "namedChunks": false,
+              "optimization": false,
+              "outputHashing": "none",
               "sourceMap": true
             },
             "local": {
@@ -27,6 +30,9 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
+              "namedChunks": false,
+              "optimization": false,
+              "outputHashing": "none",
               "sourceMap": true
             },
             "production": {
@@ -57,7 +63,13 @@
             "outputPath": "dist/sms-kaufmann",
             "polyfills": ["@angular/localize/init"],
             "scripts": [],
-            "styles": ["src/app/shared/styles/globals.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app"]
+            },
+            "styles": [
+              "src/app/shared/styles/globals.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
+            ],
             "tsConfig": "tsconfig.app.json"
           }
         },
