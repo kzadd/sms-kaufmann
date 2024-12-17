@@ -1,10 +1,33 @@
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
+@use 'colors' as *;
+@use 'fonts' as *;
+@use 'theme' as *;
 @import 'bootstrap/scss/bootstrap';
 
-body {
-  -webkit-font-smoothing: antialiased;
-  font-family: 'Inter', sans-serif;
+:root {
+  /**
+   * Colors.
+   */
+  @each $key, $value in $colors {
+    --kauf-#{$key}: #{$value};
+  }
+
+  @each $key, $value in $grays {
+    --kauf-gray-#{$key}: #{$value};
+  }
+
+  /**
+   * Utility Colors.
+   */
+  --kauf-border-color: var(--kauf-gray-300);
+  --kauf-text-color: var(--kauf-dark-2);
+}
+
+::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--kauf-gray-400);
+  border-radius: 0.25rem;
 }

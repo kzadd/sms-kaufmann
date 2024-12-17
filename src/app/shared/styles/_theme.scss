@@ -1,0 +1,17 @@
+@use 'colors' as *;
+
+$body-color: map-get($colors, dark-2);
+
+$theme-colors: map-merge(
+  $colors,
+  (
+    'danger': map-get($colors, danger),
+    'dark': map-get($colors, dark),
+    'info': map-get($colors, info),
+    'light': map-get($colors, light),
+    'primary': map-get($colors, primary),
+    'secondary': map-get($colors, secondary),
+    'success': map-get($colors, success),
+    'warning': map-get($colors, warning)
+  )
+);
