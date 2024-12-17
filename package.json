@@ -57,7 +57,7 @@
     "npm": ">=8.0.0"
   },
   "keywords": [
-    "SMS Kaufmann",
+    "Mensajería Kaufmann",
     "frontend",
     "frontend-angular",
     "web-development"
@@ -67,7 +67,7 @@
       "public"
     ]
   },
-  "name": "sms-kaufmann",
+  "name": "mensajeria-kaufmann",
   "private": true,
   "scripts": {
     "build": "rimraf dist && ng build",

@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router'
 
-import { publicRoutes } from './shared/constants/public-routes.constant'
+import { routePaths } from './shared/constants/routes.constant'
 
-const CharactersPage = () => import('./presentation/pages/character-page.component').then(m => m.CharacterPageComponent)
+const BrandLayout = () =>
+  import('./presentation/layouts/brand/brand-layout.component').then(m => m.BrandLayoutComponent)
+const LoginPage = () => import('./presentation/pages/login-page.component').then(m => m.LoginPageComponent)
 const NotFoundPage = () => import('./presentation/pages/not-found-page.component').then(m => m.NotFoundPageComponent)
+const PushSendPage = () => import('./presentation/pages/push-send-page.component').then(m => m.PushSendPageComponent)
+const SmsSendPage = () => import('./presentation/pages/sms-send-page.component').then(m => m.SmsSendPageComponent)
 
 /**
  * Routes configuration.
@@ -11,16 +15,45 @@ const NotFoundPage = () => import('./presentation/pages/not-found-page.component
  */
 export const routes: Routes = [
   {
-    path: publicRoutes.root,
+    path: routePaths.root,
     pathMatch: 'full',
-    redirectTo: publicRoutes.characters
+    redirectTo: `${routePaths.dashboard}/${routePaths.smsSend}`
   },
   {
-    loadComponent: CharactersPage,
-    path: publicRoutes.characters
+    children: [
+      {
+        path: routePaths.root,
+        pathMatch: 'full',
+        redirectTo: routePaths.login
+      },
+      {
+        loadComponent: LoginPage,
+        path: routePaths.login
+      }
+    ],
+    path: routePaths.auth
+  },
+  {
+    children: [
+      {
+        path: routePaths.root,
+        pathMatch: 'full',
+        redirectTo: routePaths.smsSend
+      },
+      {
+        loadComponent: SmsSendPage,
+        path: routePaths.smsSend
+      },
+      {
+        loadComponent: PushSendPage,
+        path: routePaths.pushSend
+      }
+    ],
+    loadComponent: BrandLayout,
+    path: routePaths.dashboard
   },
   {
     loadComponent: NotFoundPage,
-    path: publicRoutes.notFound
+    path: routePaths.notFound
   }
 ]

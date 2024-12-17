@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "sms-kaufmann": {
+    "mensajeria-kaufmann": {
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -60,7 +60,7 @@
             "browser": "src/main.ts",
             "index": "src/index.html",
             "inlineStyleLanguage": "scss",
-            "outputPath": "dist/sms-kaufmann",
+            "outputPath": "dist/mensajeria-kaufmann",
             "polyfills": ["@angular/localize/init"],
             "scripts": [],
             "stylePreprocessorOptions": {
@@ -86,13 +86,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "sms-kaufmann:build:development"
+              "buildTarget": "mensajeria-kaufmann:build:development"
             },
             "local": {
-              "buildTarget": "sms-kaufmann:build:local"
+              "buildTarget": "mensajeria-kaufmann:build:local"
             },
             "production": {
-              "buildTarget": "sms-kaufmann:build:production"
+              "buildTarget": "mensajeria-kaufmann:build:production"
             }
           },
           "defaultConfiguration": "local"
