@@ -14,6 +14,7 @@ export class LoginEffect {
   private _actions = inject(Actions)
   private _apiLoginRepository = inject(ApiLoginRepository)
   private _router = inject(Router)
+
   /**
    * Effect for the login.
    */
@@ -22,8 +23,10 @@ export class LoginEffect {
       ofType(onGetToken),
       concatMap(({ email, password }) =>
         this._apiLoginRepository.getToken({ email, password }).pipe(
-          map(loginResponse => {
-            putCookie('access_token', loginResponse.data.payload.access_token)
+          map(response => {
+            const { access_token } = response.data.payload
+
+            putCookie('access_token', access_token)
             this._router.navigate(['/'])
 
             return onGetTokenSuccess()

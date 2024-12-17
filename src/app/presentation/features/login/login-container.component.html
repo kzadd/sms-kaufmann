@@ -1,72 +1,95 @@
 @let error = error$();
 @let loading = loading$();
 
-@let emailInvalid = loginForm.get('email')?.errors?.['email'];
-@let emailRequired = loginForm.get('email')?.errors?.['required'];
-@let passwordInvalid = loginForm.get('password')?.errors?.['minlength'];
-@let passwordRequired = loginForm.get('password')?.errors?.['required'];
-
 <div class="Login">
-  <img alt="Kaufmann" class="Login-brand-logo" src="images/logo.png" />
+  <div class="Login-wave"></div>
 
-  <form (submit)="handleLogin()" [formGroup]="loginForm" class="Login-form">
-    <h1 class="Login-title">Inicio de sesión</h1>
-
-    <div class="Login-email">
-      <input
-        (input)="handleClearFormErrors()"
-        [class]="emailInvalid || emailRequired || error ? 'is-invalid' : ''"
-        class="form-control"
-        formControlName="email"
-        id="email"
-        placeholder="Correo electrónico"
-        required
-        type="email"
-      />
-
-      @if (emailRequired) {
-        <div class="invalid-feedback Login-error-feedback">El correo es requerido.</div>
-      }
-
-      @if (emailInvalid) {
-        <div class="invalid-feedback Login-error-feedback">El formato del correo no es válido.</div>
-      }
+  <div class="Login-content">
+    <div class="Login-brand">
+      <img alt="Kaufmann" class="Login-brand-logo" src="images/logo.png" />
     </div>
 
-    <div class="Login-password">
-      <input
-        (input)="handleClearFormErrors()"
-        [class]="error || passwordInvalid || passwordRequired ? 'is-invalid' : ''"
-        class="form-control"
-        formControlName="password"
-        id="password"
-        placeholder="Contraseña"
-        required
-        type="password"
-      />
+    <form (submit)="handleLogin()" [formGroup]="loginForm" class="Login-form">
+      <h1 class="Login-title">Inicio de sesión</h1>
+      <p class="Login-description">Ingresa tus credenciales para acceder a tu cuenta.</p>
 
-      @if (passwordRequired) {
-        <div class="invalid-feedback Login-error-feedback">La contraseña es requerida.</div>
+      <div class="row Login-form-row">
+        <div class="col-12 Login-email">
+          <label for="email" class="Login-form-label">Correo electrónico</label>
+
+          <input
+            (input)="clearFormErrors()"
+            [class]="{ 'is-invalid': error || getErrors('email')['email'] || getErrors('email')['required'] }"
+            class="form-control"
+            formControlName="email"
+            id="email"
+            placeholder="Correo electrónico"
+            required
+            type="email"
+          />
+
+          @if (getErrors('email')['required']) {
+            <div class="Login-form-error">El correo es requerido.</div>
+          }
+
+          @if (getErrors('email')['email']) {
+            <div class="Login-form-error">El formato del correo no es válido.</div>
+          }
+        </div>
+
+        <div class="col-12 Login-password">
+          <label for="password" class="Login-form-label">Contraseña</label>
+
+          <div class="Login-password-group">
+            <input
+              (input)="clearFormErrors()"
+              [class]="{
+                'is-invalid': error || getErrors('password')['minlength'] || getErrors('password')['required']
+              }"
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              id="password"
+              placeholder="Contraseña"
+              required
+            />
+
+            <i
+              (click)="handleTogglePasswordVisibility()"
+              (keydown.enter)="handleTogglePasswordVisibility()"
+              [class]="{
+                'bi-eye-slash': showPassword,
+                'bi-eye': !showPassword,
+                'is-invalid': error || getErrors('password')['minlength'] || getErrors('password')['required']
+              }"
+              class="bi"
+              role="button"
+              tabindex="0"
+            ></i>
+          </div>
+
+          @if (getErrors('password')['required']) {
+            <div class="Login-form-error">La contraseña es requerida.</div>
+          }
+
+          @if (getErrors('password')['minlength']) {
+            <div class="Login-form-error">La contraseña debe tener al menos 6 caracteres.</div>
+          }
+        </div>
+      </div>
+
+      @if (error?.reason === 'UNAUTHORIZED_ERROR') {
+        <div class="Login-form-error">Contraseña o correo incorrecto</div>
       }
 
-      @if (passwordInvalid) {
-        <div class="invalid-feedback Login-error-feedback">La contraseña debe tener al menos 6 caracteres.</div>
-      }
-    </div>
-
-    @if (error?.reason === 'UNAUTHORIZED_ERROR') {
-      <div class="Login-error-feedback">Contraseña o correo incorrecto</div>
-    }
-
-    <button
-      class="btn btn-primary Login-submit"
-      [disabled]="loading || emailInvalid || emailRequired || passwordInvalid || passwordRequired"
-    >
-      @if (loading) {
-        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-      } @else {
-        Ingresar
-      }
-    </button>
-  </form>
+      <button class="btn btn-primary Login-submit" [disabled]="isFormInvalid()">
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        } @else {
+          <i class="bi bi-box-arrow-in-right"></i>
+          Ingresar
+        }
+      </button>
+    </form>
+  </div>
 </div>

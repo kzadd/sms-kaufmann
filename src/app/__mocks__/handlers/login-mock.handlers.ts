@@ -23,7 +23,7 @@ export const loginMock = [
       const successResponse = {
         errors: null,
         payload: {
-          access_token: 'testing'
+          access_token: '2b094f5c53474865b9c6f49fbb3f9030'
         },
         success: 'OK'
       }

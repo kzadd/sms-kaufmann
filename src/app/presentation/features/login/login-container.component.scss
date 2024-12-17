@@ -4,45 +4,155 @@
   align-items: center;
   background-color: var(--kauf-gray-100);
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   height: 100vh;
   justify-content: center;
-  text-align: center;
+  overflow: hidden;
+  position: relative;
 
-  .Login-brand-logo {
-    height: 3.5rem;
-    margin-bottom: 1.5rem;
-    width: auto;
+  .Login-wave {
+    background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.03) 30%, rgba(0, 0, 0, 0.01) 70%);
+    bottom: 0;
+    clip-path: polygon(0% 0%, 100% 60%, 100% 100%, 0% 100%);
+    height: 6rem;
+    left: 0;
+    position: absolute;
+    width: 100%;
   }
 
-  .Login-form {
+  .Login-content {
+    background-color: var(--kauf-white);
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.03) 0 0.5rem 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    position: relative;
+    width: 30rem;
+    z-index: 1;
 
-    .Login-title {
-      font-size: 1.2rem;
-      margin: 0;
-      margin-bottom: 0.5rem;
+    .Login-brand {
+      .Login-brand-logo {
+        height: 3rem;
+        width: auto;
+      }
     }
 
-    .Login-email,
-    .Login-password {
-      position: relative;
-      width: 18rem;
-    }
+    .Login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
 
-    .Login-error-feedback {
-      color: var(--kauf-danger);
-      font-size: 0.8rem;
-      text-align: left;
-    }
+      .Login-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
 
-    .Login-submit {
-      margin-top: 1rem;
-      width: 100%;
+        @include media-breakpoint-down(sm) {
+          font-size: 6rem;
+        }
+      }
+
+      .Login-description {
+        color: var(--kauf-dark-muted);
+        font-size: 0.8rem;
+        margin: 0;
+      }
+
+      .Login-form-row {
+        gap: 1rem;
+        margin-top: 1rem;
+
+        .Login-email,
+        .Login-password {
+          input {
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            min-height: 3rem;
+            padding: 0.5rem 1rem;
+
+            &:focus {
+              box-shadow: none;
+            }
+          }
+        }
+
+        .Login-password-group {
+          position: relative;
+
+          i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+
+            &.is-invalid {
+              right: 2rem;
+            }
+          }
+        }
+      }
+
+      .Login-form-label {
+        color: var(--kauf-gray);
+        font-size: 0.7rem;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+        text-transform: uppercase;
+      }
+
+      .Login-form-error {
+        color: var(--kauf-danger);
+        font-size: 0.7rem;
+        font-weight: 500;
+        margin-top: 0.4rem;
+      }
+
+      .Login-submit {
+        align-items: center;
+        border-radius: 2rem;
+        display: flex;
+        font-size: 0.8rem;
+        gap: 0.8rem;
+        justify-content: center;
+        margin-top: 1rem;
+        min-height: 2.5rem;
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  &::after,
+  &::before {
+    background-color: rgba(0, 0, 0, 0.01);
+    border-radius: 50%;
+    content: '';
+    height: 60rem;
+    position: absolute;
+    width: 60rem;
+    z-index: 0;
+  }
+
+  &::after {
+    bottom: -30%;
+    left: -10%;
+
+    @include media-breakpoint-down(md) {
+      bottom: -60%;
+      left: -50%;
+    }
+  }
+
+  &::before {
+    right: -20%;
+    top: -30%;
+
+    @include media-breakpoint-down(md) {
+      right: -60%;
+      top: -60%;
     }
   }
 }

@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store'
 
-import { onClearLoginError, onGetToken, onGetTokenError, onGetTokenSuccess } from './login.actions'
+import { onClearState, onGetToken, onGetTokenError, onGetTokenSuccess } from './login.actions'
 import { LoginState } from './login.types'
 
 const initialState: LoginState = {
@@ -30,9 +30,9 @@ export const loginFeature = createFeature({
       error: null,
       loading: false
     })),
-    on(onClearLoginError, state => ({
-      ...state,
-      error: null
+    on(onClearState, () => ({
+      error: null,
+      loading: false
     }))
   )
 })

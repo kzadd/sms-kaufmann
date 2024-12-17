@@ -33,21 +33,21 @@ export class NavigationContainerComponent implements OnInit, OnDestroy {
     }
   ]
 
-  ngOnInit(): void {
-    this.handleUpdateCollapseState()
-    this._onMediaQueryListener = () => this.handleUpdateCollapseState()
-    this._mediaQuery.addEventListener('change', this._onMediaQueryListener)
+  handleToggleMenu(): void {
+    this.isCollapsed = !this.isCollapsed
+  }
+
+  private updateCollapseState(): void {
+    this.isCollapsed = !this._mediaQuery.matches
   }
 
   ngOnDestroy(): void {
     this._mediaQuery.removeEventListener('change', this._onMediaQueryListener)
   }
 
-  handleToggleMenu(): void {
-    this.isCollapsed = !this.isCollapsed
-  }
-
-  private handleUpdateCollapseState(): void {
-    this.isCollapsed = !this._mediaQuery.matches
+  ngOnInit(): void {
+    this.updateCollapseState()
+    this._onMediaQueryListener = () => this.updateCollapseState()
+    this._mediaQuery.addEventListener('change', this._onMediaQueryListener)
   }
 }

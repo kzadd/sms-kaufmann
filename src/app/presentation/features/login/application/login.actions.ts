@@ -8,7 +8,7 @@ import { LoginError } from './login.types'
  */
 const loginActions = createActionGroup({
   events: {
-    onClearLoginError: emptyProps(),
+    onClearState: emptyProps(),
     onGetToken: props<LoginCredentials>(),
     onGetTokenError: props<LoginError>(),
     onGetTokenSuccess: emptyProps()
@@ -16,4 +16,4 @@ const loginActions = createActionGroup({
   source: 'login'
 })
 
-export const { onClearLoginError, onGetToken, onGetTokenError, onGetTokenSuccess } = loginActions
+export const { onClearState, onGetToken, onGetTokenError, onGetTokenSuccess } = loginActions

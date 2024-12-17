@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { Router, RouterLink } from '@angular/router'
 import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from '@ng-bootstrap/ng-bootstrap'
+
+import { routePaths } from '@shared/constants/routes.constant'
+import { deleteCookie } from '@shared/utils/cookie.utils'
 
 /**
  * The Header container.
@@ -14,9 +17,12 @@ import { NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from '@ng-bootstrap/n
   templateUrl: './header-container.component.html'
 })
 export class HeaderContainerComponent {
+  private _router = inject(Router)
+
   profileName = 'Ricardo Carrasquero'
 
   handleLogout() {
-    console.log('Cerrando sesión...')
+    deleteCookie('access_token')
+    this._router.navigate([`/${routePaths.auth}/${routePaths.login}`])
   }
 }
