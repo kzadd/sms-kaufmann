@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router'
 import { routePaths } from '@shared/constants/routes.constant'
 
 /**
- * The Navigation container.
+ * Navigation container.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { PushSendContainer } from '@presentation/features/push-send'
 
 /**
- * PushSend page.
+ * Push send page.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

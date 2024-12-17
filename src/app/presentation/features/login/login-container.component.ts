@@ -9,7 +9,7 @@ import { loginFeature } from './application/login.feature'
 import { LoginCredentials } from './domain/login.entity'
 
 /**
- * The Login container.
+ * Login container.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

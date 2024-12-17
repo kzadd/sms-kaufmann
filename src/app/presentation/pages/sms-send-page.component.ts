@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { SmsSendContainer } from '@presentation/features/sms-send'
 
 /**
- * SmsSend page.
+ * Sms send page.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

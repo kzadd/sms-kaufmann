@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
 /**
- * The NotFound container.
+ * Not found container.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

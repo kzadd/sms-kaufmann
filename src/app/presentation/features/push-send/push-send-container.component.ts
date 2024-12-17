@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 /**
- * The PushSend container.
+ * Push send container.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

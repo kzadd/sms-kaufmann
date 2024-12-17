@@ -6,7 +6,7 @@ import { routePaths } from '@shared/constants/routes.constant'
 import { deleteCookie } from '@shared/utils/cookie.utils'
 
 /**
- * The Header container.
+ * Header container.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

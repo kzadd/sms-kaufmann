@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 /**
- * The SmsSend container.
+ * Sms send container.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

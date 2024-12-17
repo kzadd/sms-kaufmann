@@ -11,7 +11,7 @@ const ADMIN_EMAIL = 'test@admin.com'
 const ADMIN_PASSWORD = '123456'
 
 /**
- * loginMock handlers for the API.
+ * Login mock handlers.
  */
 export const loginMock = [
   http.post(`${API_BASE_URL}/login`, async ({ request }) => {

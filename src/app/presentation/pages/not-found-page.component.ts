@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { NotFoundContainer } from '@presentation/features/not-found'
 
 /**
- * NotFound page.
+ * Not found page.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
