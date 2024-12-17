@@ -1,4 +1,4 @@
-@use 'colors' as *;
+@use 'variables' as *;
 @use 'fonts' as *;
 @use 'theme' as *;
 @import 'bootstrap/scss/bootstrap';
@@ -16,10 +16,17 @@
   }
 
   /**
+   * Palette.
+   */
+  @each $key, $value in $palette {
+    --kauf-#{$key}: #{$value};
+  }
+
+  /**
    * Utility Colors.
    */
   --kauf-border-color: var(--kauf-gray-300);
-  --kauf-text-color: var(--kauf-dark-2);
+  --kauf-text-color: var(--kauf-dark-muted);
 }
 
 ::-webkit-scrollbar {

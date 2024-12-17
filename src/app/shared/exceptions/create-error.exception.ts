@@ -10,11 +10,10 @@ export const createError = (options: CreateErrorOptions): CreateErrorResponse =>
   const { code, originalError, reason } = options
 
   const isNetworkError = originalError instanceof HttpErrorResponse
-  const isStandardError = originalError instanceof Error
 
   const errorCode = code ?? (isNetworkError ? (originalError.status ?? null) : null)
-  const errorInstance = isNetworkError || isStandardError ? originalError : new Error(String(originalError ?? ''))
-  const errorReason = reason ?? (isNetworkError ? originalError.message : 'Unknown error occurred')
+  const errorInstance = isNetworkError ? originalError : null
+  const errorReason = reason ?? (isNetworkError ? originalError.message : null)
 
   return {
     code: errorCode,

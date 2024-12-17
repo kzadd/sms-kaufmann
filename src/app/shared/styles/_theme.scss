@@ -1,17 +1,17 @@
-@use 'colors' as *;
+@use 'variables' as *;
 
-$body-color: map-get($colors, dark-2);
+$body-color: map-get($palette, dark-surface);
 
 $theme-colors: map-merge(
-  $colors,
+  $palette,
   (
-    'danger': map-get($colors, danger),
-    'dark': map-get($colors, dark),
-    'info': map-get($colors, info),
-    'light': map-get($colors, light),
-    'primary': map-get($colors, primary),
-    'secondary': map-get($colors, secondary),
-    'success': map-get($colors, success),
-    'warning': map-get($colors, warning)
+    'danger': map-get($palette, danger),
+    'dark': map-get($palette, dark),
+    'info': map-get($palette, info),
+    'light': map-get($palette, light),
+    'primary': map-get($palette, primary),
+    'secondary': map-get($palette, secondary),
+    'success': map-get($palette, success),
+    'warning': map-get($palette, warning)
   )
 );

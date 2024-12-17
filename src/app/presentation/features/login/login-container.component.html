@@ -1,1 +1,72 @@
-<p>login</p>
+@let error = error$();
+@let loading = loading$();
+
+@let emailInvalid = loginForm.get('email')?.errors?.['email'];
+@let emailRequired = loginForm.get('email')?.errors?.['required'];
+@let passwordInvalid = loginForm.get('password')?.errors?.['minlength'];
+@let passwordRequired = loginForm.get('password')?.errors?.['required'];
+
+<div class="Login">
+  <img alt="Kaufmann" class="Login-brand-logo" src="images/logo.png" />
+
+  <form (submit)="handleLogin()" [formGroup]="loginForm" class="Login-form">
+    <h1 class="Login-title">Inicio de sesión</h1>
+
+    <div class="Login-email">
+      <input
+        (input)="handleClearFormErrors()"
+        [class]="emailInvalid || emailRequired || error ? 'is-invalid' : ''"
+        class="form-control"
+        formControlName="email"
+        id="email"
+        placeholder="Correo electrónico"
+        required
+        type="email"
+      />
+
+      @if (emailRequired) {
+        <div class="invalid-feedback Login-error-feedback">El correo es requerido.</div>
+      }
+
+      @if (emailInvalid) {
+        <div class="invalid-feedback Login-error-feedback">El formato del correo no es válido.</div>
+      }
+    </div>
+
+    <div class="Login-password">
+      <input
+        (input)="handleClearFormErrors()"
+        [class]="error || passwordInvalid || passwordRequired ? 'is-invalid' : ''"
+        class="form-control"
+        formControlName="password"
+        id="password"
+        placeholder="Contraseña"
+        required
+        type="password"
+      />
+
+      @if (passwordRequired) {
+        <div class="invalid-feedback Login-error-feedback">La contraseña es requerida.</div>
+      }
+
+      @if (passwordInvalid) {
+        <div class="invalid-feedback Login-error-feedback">La contraseña debe tener al menos 6 caracteres.</div>
+      }
+    </div>
+
+    @if (error?.reason === 'UNAUTHORIZED_ERROR') {
+      <div class="Login-error-feedback">Contraseña o correo incorrecto</div>
+    }
+
+    <button
+      class="btn btn-primary Login-submit"
+      [disabled]="loading || emailInvalid || emailRequired || passwordInvalid || passwordRequired"
+    >
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+      } @else {
+        Ingresar
+      }
+    </button>
+  </form>
+</div>

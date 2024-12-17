@@ -1,12 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http'
+
 export interface BaseError {
   code: number | null
-  originalError: Error
-  reason: string
+  originalError: HttpErrorResponse | null
+  reason: string | null
 }
 
 export interface CreateErrorOptions {
   code?: number | null
-  originalError?: unknown
+  originalError?: HttpErrorResponse | null
   reason?: string | null
 }
 

@@ -1,0 +1,48 @@
+@use 'shared/styles/globals' as *;
+
+.Login {
+  align-items: center;
+  background-color: var(--kauf-gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+
+  .Login-brand-logo {
+    height: 3.5rem;
+    margin-bottom: 1.5rem;
+    width: auto;
+  }
+
+  .Login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+
+    .Login-title {
+      font-size: 1.2rem;
+      margin: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .Login-email,
+    .Login-password {
+      position: relative;
+      width: 18rem;
+    }
+
+    .Login-error-feedback {
+      color: var(--kauf-danger);
+      font-size: 0.8rem;
+      text-align: left;
+    }
+
+    .Login-submit {
+      margin-top: 1rem;
+      width: 100%;
+    }
+  }
+}

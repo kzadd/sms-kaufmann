@@ -1,5 +1,5 @@
 .Navigation {
-  background-color: var(--kauf-dark-2);
+  background-color: var(--kauf-dark-surface);
   border-right: 1px solid var(--kauf-border-color);
   display: flex;
   flex-direction: column;
@@ -53,9 +53,9 @@
           &.active {
             color: var(--kauf-light-gray-blue);
             box-shadow:
-              -0.6rem 0 0 0 var(--kauf-dark-blue),
-              0.6rem 0 0 0 var(--kauf-dark-blue);
-            background-color: var(--kauf-dark-blue);
+              -0.6rem 0 0 0 var(--kauf-dark-muted),
+              0.6rem 0 0 0 var(--kauf-dark-muted);
+            background-color: var(--kauf-dark-muted);
           }
         }
       }
@@ -72,7 +72,7 @@
 
   .Navigation-collapse {
     align-items: center;
-    border-top: 1px solid var(--kauf-dark-blue);
+    border-top: 1px solid var(--kauf-dark-muted);
     color: var(--kauf-muted);
     display: flex;
     font-size: 0.8rem;
