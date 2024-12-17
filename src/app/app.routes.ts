@@ -4,6 +4,7 @@ import { routePaths } from './shared/constants/routes.constant'
 
 const BrandLayout = () =>
   import('./presentation/layouts/brand/brand-layout.component').then(m => m.BrandLayoutComponent)
+
 const LoginPage = () => import('./presentation/pages/login-page.component').then(m => m.LoginPageComponent)
 const NotFoundPage = () => import('./presentation/pages/not-found-page.component').then(m => m.NotFoundPageComponent)
 const PushSendPage = () => import('./presentation/pages/push-send-page.component').then(m => m.PushSendPageComponent)
