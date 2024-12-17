@@ -9,7 +9,7 @@ export const deleteLocalStorage = (key: string): void => {
     localStorage.removeItem(key)
   } catch (error) {
     console.error(`Unable to delete item from localStorage with key ${key}`, error)
-    throw createError({ reason: 'DELETE_LOCAL_STORAGE_ERROR' })
+    throw createError({ originalError: error as Error, reason: 'DELETE_LOCAL_STORAGE_ERROR' })
   }
 }
 
@@ -32,7 +32,7 @@ export const getLocalStorage = <T = string>(key: string, options: LocalStorageOp
     return parsedEntry
   } catch (error) {
     console.error(`Unable to get data from localStorage with key ${key}`, error)
-    throw createError({ reason: 'GET_LOCAL_STORAGE_ERROR' })
+    throw createError({ originalError: error as Error, reason: 'GET_LOCAL_STORAGE_ERROR' })
   }
 }
 
@@ -49,6 +49,6 @@ export const putLocalStorage = (key: string, value: string | object, options: Lo
     localStorage.setItem(key, finalValue)
   } catch (error) {
     console.error(`Unable to put data into localStorage with key ${key}`, error)
-    throw createError({ reason: 'PUT_LOCAL_STORAGE_ERROR' })
+    throw createError({ originalError: error as Error, reason: 'PUT_LOCAL_STORAGE_ERROR' })
   }
 }

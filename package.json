@@ -21,7 +21,7 @@
     "tslib": "^2.8.1",
     "zone.js": "~0.14.10"
   },
-  "description": "The package where lives the SMS Kaufmann project.",
+  "description": "The package where lives the Mensajería Kaufmann project.",
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.12",
     "@angular/cli": "^18.2.12",

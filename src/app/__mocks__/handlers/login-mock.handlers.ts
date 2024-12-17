@@ -2,16 +2,24 @@ import { delay, http, HttpResponse } from 'msw'
 
 import { API_BASE_URL } from '@shared/configs/environment.config'
 
+interface LoginRequest {
+  email: string
+  password: string
+}
+
+const ADMIN_EMAIL = 'test@admin.com'
+const ADMIN_PASSWORD = '123456'
+
 /**
  * loginMock handlers for the API.
  */
 export const loginMock = [
   http.post(`${API_BASE_URL}/login`, async ({ request }) => {
-    const { correo: email, contrasena: password } = (await request.json()) as { correo: string; contrasena: string }
+    const { email, password } = (await request.json()) as LoginRequest
 
-    await delay(2000)
+    await delay(1000)
 
-    if (email === 'admin@admin.com' && password === '123456') {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       const successResponse = {
         errors: null,
         payload: {
@@ -24,7 +32,7 @@ export const loginMock = [
     }
 
     const errorResponse = {
-      errors: ['Contraseña o correo incorrecto'],
+      errors: ['Email or password incorrect'],
       payload: null,
       success: 'NOK'
     }

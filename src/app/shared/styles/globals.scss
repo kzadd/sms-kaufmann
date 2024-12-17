@@ -1,6 +1,7 @@
 @use 'variables' as *;
 @use 'fonts' as *;
 @use 'theme' as *;
+
 @import 'bootstrap/scss/bootstrap';
 
 :root {
@@ -27,6 +28,7 @@
    */
   --kauf-border-color: var(--kauf-gray-300);
   --kauf-text-color: var(--kauf-dark-muted);
+  --kauf-gray-102: #f2f2f2;
 }
 
 ::-webkit-scrollbar {

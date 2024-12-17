@@ -12,7 +12,7 @@ export const createError = (options: CreateErrorOptions): CreateErrorResponse =>
   const isNetworkError = originalError instanceof HttpErrorResponse
 
   const errorCode = code ?? (isNetworkError ? (originalError.status ?? null) : null)
-  const errorInstance = isNetworkError ? originalError : null
+  const errorInstance = originalError ?? null
   const errorReason = reason ?? (isNetworkError ? originalError.message : null)
 
   return {

@@ -11,7 +11,7 @@ export const deleteCookie = (key: string): void => {
     Cookie.remove(key)
   } catch (error) {
     console.error(`Unable to delete cookie ${key}`, error)
-    throw createError({ reason: 'DELETE_COOKIE_ERROR' })
+    throw createError({ originalError: error as Error, reason: 'DELETE_COOKIE_ERROR' })
   }
 }
 
@@ -34,7 +34,7 @@ export const getCookie = <T = string>(key: string, options: CookieOptions = {}):
     return parsedEntry
   } catch (error) {
     console.error(`Unable to get data from cookie ${key}`, error)
-    throw createError({ reason: 'GET_COOKIE_ERROR' })
+    throw createError({ originalError: error as Error, reason: 'GET_COOKIE_ERROR' })
   }
 }
 
@@ -58,6 +58,6 @@ export const putCookie = (key: string, value: string | object, options: CookieOp
     Cookie.set(key, finalValue, config)
   } catch (error) {
     console.error(`Unable to put data into cookie ${key}`, error)
-    throw createError({ reason: 'PUT_COOKIE_ERROR' })
+    throw createError({ originalError: error as Error, reason: 'PUT_COOKIE_ERROR' })
   }
 }

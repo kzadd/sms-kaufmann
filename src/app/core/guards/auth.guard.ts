@@ -4,6 +4,9 @@ import { CanActivateFn, Router } from '@angular/router'
 import { routePaths } from '@shared/constants/routes.constant'
 import { getCookie } from '@shared/utils/cookie.utils'
 
+/**
+ * Auth guard to check if the user is authenticated.
+ */
 export const authGuard: CanActivateFn = () => {
   const access_token = getCookie('access_token')
   const isAuthenticated = !!access_token
