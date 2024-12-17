@@ -12,5 +12,16 @@
     background-color: var(--kauf-gray-100);
     flex-grow: 1;
     padding: 1rem;
+    position: relative;
+
+    .Layout-wave {
+      background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.03) 30%, rgba(0, 0, 0, 0.01) 70%);
+      bottom: 0;
+      clip-path: polygon(0% 0%, 100% 60%, 100% 100%, 0% 100%);
+      height: 6rem;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
   }
 }
