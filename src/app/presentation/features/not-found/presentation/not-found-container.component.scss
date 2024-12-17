@@ -1,0 +1,43 @@
+@use 'shared/styles/globals' as *;
+
+.Not-found {
+  align-items: center;
+  background-color: var(--kauf-gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+
+  .Not-found-brand-logo {
+    height: 4rem;
+    margin-bottom: 1.5rem;
+    width: auto;
+
+    @include media-breakpoint-down(sm) {
+      height: 3.5rem;
+    }
+  }
+
+  .Not-found-title {
+    font-size: 6rem;
+    font-weight: 700;
+    margin: 0;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 5rem;
+    }
+  }
+
+  .Not-found-description {
+    margin: 0;
+  }
+
+  .Not-found-link {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+}

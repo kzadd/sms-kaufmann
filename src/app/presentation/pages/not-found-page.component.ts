@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
+import { NotFoundContainer } from '@presentation/features/not-found'
+
 /**
  * NotFound page.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NotFoundContainer],
   selector: 'app-not-found-page',
   standalone: true,
-  template: `<h1>Not Found page</h1>`
+  template: `<app-not-found-container />`
 })
 export class NotFoundPageComponent {}
