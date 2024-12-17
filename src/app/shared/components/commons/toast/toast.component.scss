@@ -1,0 +1,36 @@
+.Toast {
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+
+  &.Toast-danger {
+    color: var(--kauf-red-500);
+    background-color: var(--kauf-red-100);
+    border: 1px solid var(--kauf-red-300);
+  }
+
+  &.Toast-default {
+    color: var(--kauf-gray-700);
+    background-color: var(--kauf-gray-100);
+    border: 1px solid var(--kauf-gray-300);
+  }
+
+  &.Toast-success {
+    color: var(--kauf-green-500);
+    background-color: var(--kauf-green-100);
+    border: 1px solid var(--kauf-green-300);
+  }
+
+  .Toast-message {
+    align-items: center;
+    display: flex;
+    gap: 0.8rem;
+  }
+}
+
+:host {
+  margin: 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1200;
+}

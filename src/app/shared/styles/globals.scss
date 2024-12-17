@@ -1,6 +1,8 @@
-@use 'variables' as *;
 @use 'fonts' as *;
+@use 'functions' as *;
+@use 'mixins' as *;
 @use 'theme' as *;
+@use 'variables' as *;
 
 @import 'bootstrap/scss/bootstrap';
 
@@ -8,27 +10,29 @@
   /**
    * Colors.
    */
-  @each $key, $value in $colors {
-    --kauf-#{$key}: #{$value};
-  }
-
-  @each $key, $value in $grays {
-    --kauf-gray-#{$key}: #{$value};
-  }
+  @include export-to-css-variables($blues, 'kauf-blue');
+  @include export-to-css-variables($colors, 'kauf');
+  @include export-to-css-variables($cyans, 'kauf-cyan');
+  @include export-to-css-variables($grays, 'kauf-gray');
+  @include export-to-css-variables($greens, 'kauf-green');
+  @include export-to-css-variables($indigos, 'kauf-indigo');
+  @include export-to-css-variables($oranges, 'kauf-orange');
+  @include export-to-css-variables($pinks, 'kauf-pink');
+  @include export-to-css-variables($purples, 'kauf-purple');
+  @include export-to-css-variables($reds, 'kauf-red');
+  @include export-to-css-variables($teals, 'kauf-teal');
+  @include export-to-css-variables($yellows, 'kauf-yellow');
 
   /**
    * Palette.
    */
-  @each $key, $value in $palette {
-    --kauf-#{$key}: #{$value};
-  }
+  @include export-to-css-variables($palette, 'kauf');
 
   /**
    * Utility Colors.
    */
   --kauf-border-color: var(--kauf-gray-300);
   --kauf-text-color: var(--kauf-dark-muted);
-  --kauf-gray-102: #f2f2f2;
 }
 
 ::-webkit-scrollbar {
