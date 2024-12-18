@@ -31,12 +31,12 @@ export class LoginContainerComponent {
 
   formGroup: FormGroup = this._fb.group({
     email: [
-      { disabled: this.loading$(), value: ENABLE_MOCKING ? CREDENTIALS_TEST_EMAIL : '' },
-      [Validators.required, Validators.email]
+      { disabled: false, value: ENABLE_MOCKING ? CREDENTIALS_TEST_EMAIL : '' },
+      { updateOn: 'blur', validators: [Validators.required, Validators.email] }
     ],
     password: [
-      { disabled: this.loading$(), value: ENABLE_MOCKING ? CREDENTIALS_TEST_PASSWORD : '' },
-      [Validators.required, Validators.minLength(6)]
+      { disabled: false, value: ENABLE_MOCKING ? CREDENTIALS_TEST_PASSWORD : '' },
+      { updateOn: 'blur', validators: [Validators.required, Validators.minLength(6)] }
     ]
   })
 

@@ -19,7 +19,9 @@
 
           <input
             (input)="clearFormErrors()"
-            [class]="{ 'is-invalid': error || getErrors('email')['email'] || getErrors('email')['required'] }"
+            [class]="{
+              'is-invalid': error || (formGroup.controls['email'].touched && formGroup.controls['email'].invalid)
+            }"
             [disabled]="!loading"
             class="form-control"
             formControlName="email"
@@ -29,12 +31,14 @@
             type="email"
           />
 
-          @if (getErrors('email')['required']) {
-            <div class="Login-form-error">El correo es requerido.</div>
-          }
+          @if (formGroup.controls['email'].touched) {
+            @if (getErrors('email')['required']) {
+              <div class="Login-form-error">El correo es requerido.</div>
+            }
 
-          @if (getErrors('email')['email']) {
-            <div class="Login-form-error">El formato del correo no es válido.</div>
+            @if (getErrors('email')['email']) {
+              <div class="Login-form-error">El formato del correo no es válido.</div>
+            }
           }
         </div>
 
@@ -45,7 +49,8 @@
             <input
               (input)="clearFormErrors()"
               [class]="{
-                'is-invalid': error || getErrors('password')['minlength'] || getErrors('password')['required']
+                'is-invalid':
+                  error || (formGroup.controls['password'].touched && formGroup.controls['password'].invalid)
               }"
               [disabled]="!loading"
               [type]="showPassword ? 'text' : 'password'"
@@ -62,7 +67,8 @@
               [class]="{
                 'bi-eye': !showPassword,
                 'bi-eye-slash': showPassword,
-                'is-invalid': error || getErrors('password')['minlength'] || getErrors('password')['required']
+                'is-invalid':
+                  error || (formGroup.controls['password'].touched && formGroup.controls['password'].invalid)
               }"
               class="bi"
               role="button"
@@ -70,12 +76,14 @@
             ></i>
           </div>
 
-          @if (getErrors('password')['required']) {
-            <div class="Login-form-error">La contraseña es requerida.</div>
-          }
+          @if (formGroup.controls['password'].touched) {
+            @if (getErrors('password')['required']) {
+              <div class="Login-form-error">La contraseña es requerida.</div>
+            }
 
-          @if (getErrors('password')['minlength']) {
-            <div class="Login-form-error">La contraseña debe tener al menos 6 caracteres.</div>
+            @if (getErrors('password')['minlength']) {
+              <div class="Login-form-error">La contraseña debe tener al menos 6 caracteres.</div>
+            }
           }
         </div>
       </div>
