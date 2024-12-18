@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, Signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap'
 import { Store } from '@ngrx/store'
 
 import { ENABLE_MOCKING } from '@shared/configs/environment.config'
@@ -15,7 +16,7 @@ import { LoginCredentials } from './domain/login.entity'
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule],
+  imports: [NgbAlert, ReactiveFormsModule],
   selector: 'app-login-container',
   standalone: true,
   styleUrl: './login-container.component.scss',
@@ -55,9 +56,7 @@ export class LoginContainerComponent {
   }
 
   clearFormErrors() {
-    if (this.error$()?.reason === 'UNAUTHORIZED_ERROR') {
-      this._store.dispatch(onClearState())
-    }
+    this._store.dispatch(onClearState())
   }
 
   getErrors(field: string) {

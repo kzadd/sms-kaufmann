@@ -88,7 +88,22 @@
         </div>
       </div>
 
-      @if (error?.reason === 'UNAUTHORIZED_ERROR') {
+      @if (error && error?.reason === 'SOMETHING_WENT_WRONG_ERROR') {
+        <ngb-alert [dismissible]="false" class="Login-network-error" type="danger">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+
+          <div class="Login-network-error-content">
+            <strong>Lo sentimos, estamos presentando problemas con nuestro servidor.</strong>
+
+            <span>
+              En estos momentos tenemos problemas para disponibilizar la información. Por favor, consulta en unos
+              minutos más.
+            </span>
+          </div>
+        </ngb-alert>
+      }
+
+      @if (error && error?.reason === 'UNAUTHORIZED_ERROR') {
         <div class="Login-form-error">Contraseña o correo incorrecto</div>
       }
 

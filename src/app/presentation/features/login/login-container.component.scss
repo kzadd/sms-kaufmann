@@ -111,6 +111,20 @@
         margin-top: 0.4rem;
       }
 
+      .Login-network-error {
+        display: flex;
+        font-size: 0.8rem;
+        gap: 0.8rem;
+        justify-content: center;
+        margin: 1rem 0 0;
+
+        .Login-network-error-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+      }
+
       .Login-submit {
         align-items: center;
         border-radius: 0.5rem;
