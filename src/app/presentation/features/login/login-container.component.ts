@@ -56,7 +56,9 @@ export class LoginContainerComponent {
   }
 
   clearFormErrors() {
-    this._store.dispatch(onClearState())
+    if (this.error$()) {
+      this._store.dispatch(onClearState())
+    }
   }
 
   getErrors(field: string) {
