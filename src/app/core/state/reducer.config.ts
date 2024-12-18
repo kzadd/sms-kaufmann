@@ -1,4 +1,5 @@
 import { loginFeature } from '@presentation/features/login'
+import { pushSendFeature } from '@presentation/features/push-send'
 import { smsSendFeature } from '@presentation/features/sms-send'
 
 /**
@@ -7,5 +8,6 @@ import { smsSendFeature } from '@presentation/features/sms-send'
  */
 export const reducer = {
   [loginFeature.name]: loginFeature.reducer,
+  [pushSendFeature.name]: pushSendFeature.reducer,
   [smsSendFeature.name]: smsSendFeature.reducer
 }

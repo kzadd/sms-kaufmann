@@ -16,8 +16,8 @@ import { ENABLE_MOCKING } from '@shared/configs/environment.config'
 import {
   ALLOWED_FILE_TYPES,
   MAX_FILE_SIZE_MB,
-  SMS_SEND_TEST_MESSAGE,
-  SMS_SEND_TEST_PHONE
+  SEND_TEST_MESSAGE,
+  SEND_TEST_PHONE
 } from '@shared/constants/app.constant'
 import { BaseError } from '@shared/types/exception.types'
 import { onClearState, onSmsSend } from './application/sms-send.actions'
@@ -72,11 +72,11 @@ export class SmsSendContainerComponent {
 
   individualFormGroup: FormGroup = this._fb.group({
     message: [
-      { disabled: false, value: ENABLE_MOCKING ? SMS_SEND_TEST_MESSAGE : '' },
+      { disabled: false, value: ENABLE_MOCKING ? SEND_TEST_MESSAGE : '' },
       { updateOn: 'blur', validators: [Validators.required] }
     ],
     phone: [
-      { disabled: false, value: ENABLE_MOCKING ? SMS_SEND_TEST_PHONE : '' },
+      { disabled: false, value: ENABLE_MOCKING ? SEND_TEST_PHONE : '' },
       { updateOn: 'blur', validators: [Validators.required, Validators.pattern(/^(\+?56)?[9]\d{8}$/)] }
     ]
   })
