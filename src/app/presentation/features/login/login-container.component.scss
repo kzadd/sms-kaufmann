@@ -22,13 +22,14 @@
   .Login-content {
     background-color: var(--kauf-white);
     border-radius: 1rem;
+    border: 1px solid var(--kauf-border-color);
     box-shadow: rgba(0, 0, 0, 0.03) 0 0.5rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 2rem;
     position: relative;
-    width: 30rem;
+    width: 28rem;
     z-index: 1;
 
     .Login-brand {
@@ -44,13 +45,15 @@
       gap: 0.5rem;
 
       .Login-title {
+        color: var(--kauf-dark-surface);
         font-size: 1.5rem;
         font-weight: 700;
+        letter-spacing: -0.1rem;
         margin: 0;
       }
 
       .Login-description {
-        color: var(--kauf-dark-muted);
+        color: var(--kauf-gray-700);
         font-size: 0.8rem;
         margin: 0;
       }
