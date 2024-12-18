@@ -67,7 +67,7 @@ export class PushSendContainerComponent {
 
   individualFormGroup: FormGroup = this._fb.group({
     application: [
-      { disabled: false, value: '' },
+      { disabled: false, value: ENABLE_MOCKING ? 'example-1' : '' },
       { updateOn: 'blur', validators: [Validators.required] }
     ],
     dni: [
@@ -82,7 +82,7 @@ export class PushSendContainerComponent {
 
   massiveFormGroup: FormGroup = this._fb.group({
     application: [
-      { disabled: false, value: '' },
+      { disabled: false, value: ENABLE_MOCKING ? 'example-1' : '' },
       { updateOn: 'blur', validators: [Validators.required] }
     ],
     file: [
