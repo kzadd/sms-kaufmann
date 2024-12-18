@@ -9,7 +9,7 @@
       <img alt="Kaufmann" class="Login-brand-logo" src="images/logo.png" />
     </div>
 
-    <form (submit)="handleLogin()" [formGroup]="loginForm" class="Login-form">
+    <form (submit)="handleSubmit()" [formGroup]="formGroup" class="Login-form">
       <h1 class="Login-title">Inicio de sesión</h1>
       <p class="Login-description">Ingresa tus credenciales para acceder a tu cuenta.</p>
 
@@ -20,6 +20,7 @@
           <input
             (input)="clearFormErrors()"
             [class]="{ 'is-invalid': error || getErrors('email')['email'] || getErrors('email')['required'] }"
+            [disabled]="!loading"
             class="form-control"
             formControlName="email"
             id="email"
@@ -46,6 +47,7 @@
               [class]="{
                 'is-invalid': error || getErrors('password')['minlength'] || getErrors('password')['required']
               }"
+              [disabled]="!loading"
               [type]="showPassword ? 'text' : 'password'"
               class="form-control"
               formControlName="password"
@@ -58,8 +60,8 @@
               (click)="handleTogglePasswordVisibility()"
               (keydown.enter)="handleTogglePasswordVisibility()"
               [class]="{
-                'bi-eye-slash': showPassword,
                 'bi-eye': !showPassword,
+                'bi-eye-slash': showPassword,
                 'is-invalid': error || getErrors('password')['minlength'] || getErrors('password')['required']
               }"
               class="bi"
@@ -82,7 +84,7 @@
         <div class="Login-form-error">Contraseña o correo incorrecto</div>
       }
 
-      <button class="btn btn-primary Login-submit" [disabled]="isFormInvalid()">
+      <button [disabled]="isFormInvalid()" class="btn btn-primary Login-submit">
         @if (loading) {
           <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
         } @else {

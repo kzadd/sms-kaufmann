@@ -19,9 +19,7 @@ export class ApiLoginRepository implements LoginRepository {
   private _http = inject(HttpService)
 
   getToken(credentials: LoginCredentials): Observable<ApiResponse<LoginApiResponse>> {
-    const body = {
-      ...credentials
-    }
+    const body = { ...credentials }
 
     return this._http.postJsonRequest(`${API_BASE_URL}/login`, { body })
   }

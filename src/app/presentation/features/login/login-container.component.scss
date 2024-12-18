@@ -64,6 +64,14 @@
 
         .Login-email,
         .Login-password {
+          .Login-form-label {
+            color: var(--kauf-gray);
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+          }
+
           input {
             border-radius: 0.5rem;
             font-size: 0.875rem;
@@ -76,28 +84,22 @@
           }
         }
 
-        .Login-password-group {
-          position: relative;
+        .Login-password {
+          .Login-password-group {
+            position: relative;
 
-          i {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
+            i {
+              position: absolute;
+              right: 1rem;
+              top: 50%;
+              transform: translateY(-50%);
 
-            &.is-invalid {
-              right: 2rem;
+              &.is-invalid {
+                right: 2rem;
+              }
             }
           }
         }
-      }
-
-      .Login-form-label {
-        color: var(--kauf-gray);
-        font-size: 0.7rem;
-        font-weight: 500;
-        margin-bottom: 0.4rem;
-        text-transform: uppercase;
       }
 
       .Login-form-error {

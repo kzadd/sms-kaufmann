@@ -15,6 +15,9 @@ export const loginFeature = createFeature({
   name: 'login',
   reducer: createReducer(
     initialState,
+    on(onClearState, () => ({
+      ...initialState
+    })),
     on(onGetToken, state => ({
       ...state,
       error: null,
@@ -27,10 +30,6 @@ export const loginFeature = createFeature({
     })),
     on(onGetTokenSuccess, state => ({
       ...state,
-      error: null,
-      loading: false
-    })),
-    on(onClearState, () => ({
       error: null,
       loading: false
     }))

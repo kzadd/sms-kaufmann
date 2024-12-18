@@ -1,14 +1,12 @@
 import { delay, http, HttpResponse } from 'msw'
 
 import { API_BASE_URL } from '@shared/configs/environment.config'
+import { CREDENTIALS_TEST_EMAIL, CREDENTIALS_TEST_PASSWORD } from '@shared/constants/app.constant'
 
 interface LoginRequest {
   email: string
   password: string
 }
-
-const CREDENTIALS_EMAIL = 'test@admin.com'
-const CREDENTIALS_PASSWORD = '123456'
 
 /**
  * Login mock handlers.
@@ -19,7 +17,7 @@ export const loginMock = [
 
     await delay(1000)
 
-    if (email === CREDENTIALS_EMAIL && password === CREDENTIALS_PASSWORD) {
+    if (email === CREDENTIALS_TEST_EMAIL && password === CREDENTIALS_TEST_PASSWORD) {
       const successResponse = {
         errors: null,
         payload: {

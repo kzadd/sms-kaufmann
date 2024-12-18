@@ -1,4 +1,4 @@
-<aside [class]="isCollapsed ? 'Navigation Navigation-collapsed' : 'Navigation'">
+<aside [class]="{ 'Navigation-collapsed': isCollapsed, Navigation: true }">
   <nav class="Navigation-menu">
     <ul class="Navigation-menu-list">
       @for (item of menuItems; track $index) {
@@ -7,12 +7,12 @@
             [routerLinkActiveOptions]="{ exact: true }"
             [routerLink]="item.path"
             class="Navigation-menu-link"
-            routerLinkActive="active"
+            routerLinkActive="is-active"
           >
             <i [class]="item.icon" class="bi"></i>
 
             @if (!isCollapsed) {
-              <span class="Navigation-link-text">{{ item.label }}</span>
+              <span>{{ item.label }}</span>
             }
           </a>
         </li>
@@ -31,7 +31,7 @@
     <i [class]="isCollapsed ? 'bi bi-arrow-bar-right' : 'bi bi-arrow-bar-left'"></i>
 
     @if (!isCollapsed) {
-      <p class="Navigation-collapse-text">Colapsar menú</p>
+      <span>Colapsar menú</span>
     }
   </div>
 </aside>

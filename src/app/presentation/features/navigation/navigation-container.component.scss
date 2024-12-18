@@ -6,15 +6,6 @@
   height: 100%;
   width: 15.625rem;
 
-  &.Navigation-collapsed {
-    width: 4rem;
-
-    .Navigation-menu-link,
-    .Navigation-collapse {
-      justify-content: center;
-    }
-  }
-
   .Navigation-menu {
     flex-grow: 1;
     height: calc(100vh - 8rem);
@@ -51,7 +42,7 @@
           }
 
           &:hover,
-          &.active {
+          &.is-active {
             color: var(--kauf-light-gray-blue);
             box-shadow:
               -0.6rem 0 0 0 var(--kauf-dark-muted),
@@ -86,12 +77,17 @@
       font-size: 1rem;
     }
 
-    .Navigation-collapse-text {
-      margin: 0;
-    }
-
     &:hover {
       color: var(--kauf-light-gray-blue);
     }
+  }
+}
+
+.Navigation.Navigation-collapsed {
+  width: 4rem;
+
+  .Navigation-menu-link,
+  .Navigation-collapse {
+    justify-content: center;
   }
 }
