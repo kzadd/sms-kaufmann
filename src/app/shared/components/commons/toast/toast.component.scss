@@ -12,20 +12,20 @@
 
   &.Toast-danger {
     background-color: var(--kauf-red-100);
-    border: 1px solid var(--kauf-red-300);
-    color: var(--kauf-red-500);
+    border: 1px solid var(--kauf-red-200);
+    color: var(--kauf-red-600);
   }
 
   &.Toast-default {
     background-color: var(--kauf-gray-100);
-    border: 1px solid var(--kauf-gray-300);
-    color: var(--kauf-gray-700);
+    border: 1px solid var(--kauf-gray-200);
+    color: var(--kauf-gray-600);
   }
 
   &.Toast-success {
     background-color: var(--kauf-green-100);
-    border: 1px solid var(--kauf-green-300);
-    color: var(--kauf-green-500);
+    border: 1px solid var(--kauf-green-200);
+    color: var(--kauf-green-600);
   }
 
   .Toast-message {

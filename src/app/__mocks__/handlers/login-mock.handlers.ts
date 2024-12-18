@@ -1,19 +1,15 @@
 import { delay, http, HttpResponse } from 'msw'
 
+import { LoginCredentials } from '@presentation/features/login'
 import { API_BASE_URL } from '@shared/configs/environment.config'
 import { CREDENTIALS_TEST_EMAIL, CREDENTIALS_TEST_PASSWORD } from '@shared/constants/app.constant'
-
-interface LoginRequest {
-  email: string
-  password: string
-}
 
 /**
  * Login mock handlers.
  */
 export const loginMock = [
   http.post(`${API_BASE_URL}/login`, async ({ request }) => {
-    const { email, password } = (await request.json()) as LoginRequest
+    const { email, password } = (await request.json()) as LoginCredentials
 
     await delay(1000)
 

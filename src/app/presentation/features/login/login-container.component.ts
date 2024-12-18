@@ -46,11 +46,9 @@ export class LoginContainerComponent {
       const isLoading = this.loading$()
 
       if (isLoading) {
-        this.formGroup.controls['email'].disable()
-        this.formGroup.controls['password'].disable()
+        this.formGroup.disable()
       } else {
-        this.formGroup.controls['email'].enable()
-        this.formGroup.controls['password'].enable()
+        this.formGroup.enable()
       }
     })
   }
