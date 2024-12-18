@@ -1,1 +1,159 @@
-<p>sms-send</p>
+@let error = error$();
+@let loading = loading$();
+
+<div class="Sms-send">
+  <h1 class="Sms-send-title">Envíos SMS</h1>
+
+  <p class="Sms-send-description">
+    Envía mensajes SMS de forma individual o masiva a tus clientes. Gestiona tus comunicaciones de manera eficiente y
+    mantén informados a tus destinatarios.
+  </p>
+
+  <div class="Sms-send-content">
+    <ul #nav="ngbNav" (navChange)="handleTabChange()" [(activeId)]="activeTab" class="nav-tabs Sms-send-tabs" ngbNav>
+      <li [ngbNavItem]="1">
+        <button [disabled]="loading" class="Sms-send-tab" ngbNavLink>Individual</button>
+
+        <ng-template ngbNavContent>
+          <form [formGroup]="individualFormGroup" class="Sms-send-form">
+            <div class="Sms-send-form-row">
+              <div class="Sms-send-phone">
+                <label class="Sms-send-label" for="phone">Teléfono</label>
+
+                <input
+                  (input)="clearFormErrors()"
+                  [class]="{
+                    'is-invalid':
+                      error ||
+                      (individualFormGroup.controls['phone'].invalid && individualFormGroup.controls['phone'].touched)
+                  }"
+                  [disabled]="!loading"
+                  class="form-control"
+                  formControlName="phone"
+                  id="phone"
+                  placeholder="Teléfono"
+                  required
+                  type="text"
+                />
+
+                @if (individualFormGroup.controls['phone'].touched) {
+                  @if (getErrors('phone')['pattern']) {
+                    <div class="Sms-send-form-error">
+                      El número debe tener 9 dígitos y ser válido. Ejemplo: +56948977354 o 948977354.
+                    </div>
+                  }
+
+                  @if (getErrors('phone')['required']) {
+                    <div class="Sms-send-form-error">El teléfono es requerido.</div>
+                  }
+                }
+              </div>
+
+              <div class="Sms-send-message">
+                <label class="Sms-send-label" for="message">Mensaje</label>
+
+                <textarea
+                  (input)="clearFormErrors()"
+                  [class]="{
+                    'is-invalid':
+                      error ||
+                      (individualFormGroup.controls['message'].invalid &&
+                        individualFormGroup.controls['message'].touched)
+                  }"
+                  [disabled]="!loading"
+                  class="form-control"
+                  formControlName="message"
+                  id="message"
+                  placeholder="Mensaje"
+                  required
+                  rows="3"
+                  type="text"
+                ></textarea>
+
+                @if (individualFormGroup.controls['message'].touched) {
+                  @if (getErrors('message')['required']) {
+                    <div class="Sms-send-form-error">El mensaje es requerido.</div>
+                  }
+                }
+              </div>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="2">
+        <button [disabled]="loading" class="Sms-send-tab" ngbNavLink>Masivo</button>
+
+        <ng-template ngbNavContent>
+          <form [formGroup]="massiveFormGroup" class="Sms-send-form">
+            <div class="Sms-send-form-row">
+              <div class="Sms-send-file">
+                <label class="Sms-send-label" for="file">Archivo</label>
+
+                <input
+                  (input)="clearFormErrors()"
+                  [class]="{
+                    'is-invalid':
+                      error || (massiveFormGroup.controls['file'].invalid && massiveFormGroup.controls['file'].touched)
+                  }"
+                  [disabled]="!loading"
+                  accept=".csv,.xlsx,.xls"
+                  class="form-control"
+                  (change)="onFileChange($event)"
+                  formControlName="file"
+                  id="file"
+                  type="file"
+                />
+
+                @if (massiveFormGroup.controls['file'].touched) {
+                  @if (getErrors('file')['required']) {
+                    <div class="Sms-send-form-error">El archivo es requerido</div>
+                  }
+
+                  @if (getFileErrors()) {
+                    <div class="Sms-send-form-error">{{ getFileErrors() }}</div>
+                  }
+                }
+              </div>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div class="Sms-send-outlet">
+      <div [ngbNavOutlet]="nav"></div>
+
+      @if (error && error?.reason === 'SOMETHING_WENT_WRONG_ERROR') {
+        <ngb-alert [dismissible]="false" class="Sms-send-network-error" type="danger">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+
+          <div class="Sms-send-network-error-content">
+            <strong>Lo sentimos, estamos presentando problemas con nuestro servidor.</strong>
+
+            <span>
+              En estos momentos tenemos problemas para disponibilizar la información. Por favor, consulta en unos
+              minutos más.
+            </span>
+          </div>
+        </ngb-alert>
+      }
+
+      <div class="Sms-send-actions">
+        <button (click)="handleSmsSend()" [disabled]="isFormInvalid()" class="btn btn-primary Sms-send-action">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          } @else {
+            <i class="bi bi-send"></i>
+            <span>Envía SMS</span>
+          }
+        </button>
+
+        <button (click)="handleClearForm()" [disabled]="isFormInvalid()" class="btn btn-light Sms-send-action">
+          <i class="bi bi-x-circle"></i>
+          <span>Limpiar formulario</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

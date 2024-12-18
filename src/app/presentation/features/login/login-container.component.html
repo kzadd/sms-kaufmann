@@ -20,7 +20,7 @@
           <input
             (input)="clearFormErrors()"
             [class]="{
-              'is-invalid': error || (formGroup.controls['email'].touched && formGroup.controls['email'].invalid)
+              'is-invalid': error || (formGroup.controls['email'].invalid && formGroup.controls['email'].touched)
             }"
             [disabled]="!loading"
             class="form-control"
@@ -50,7 +50,7 @@
               (input)="clearFormErrors()"
               [class]="{
                 'is-invalid':
-                  error || (formGroup.controls['password'].touched && formGroup.controls['password'].invalid)
+                  error || (formGroup.controls['password'].invalid && formGroup.controls['password'].touched)
               }"
               [disabled]="!loading"
               [type]="showPassword ? 'text' : 'password'"
@@ -68,7 +68,7 @@
                 'bi-eye': !showPassword,
                 'bi-eye-slash': showPassword,
                 'is-invalid':
-                  error || (formGroup.controls['password'].touched && formGroup.controls['password'].invalid)
+                  error || (formGroup.controls['password'].invalid && formGroup.controls['password'].touched)
               }"
               class="bi"
               role="button"
