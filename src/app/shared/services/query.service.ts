@@ -10,7 +10,7 @@ export class QueryService {
   /**
    * Retrieve the query parameters from the current URL.
    */
-  getQuery(): Record<string, string> {
+  getQuery() {
     const queryParams: Record<string, string> = {}
 
     this._route.snapshot.queryParamMap.keys.forEach(key => {

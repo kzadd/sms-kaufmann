@@ -10,7 +10,7 @@ export class QueryParamService {
   /**
    * Retrieve a specific query parameter from the URL.
    */
-  getQueryParam(key: string): string {
+  getQueryParam(key: string) {
     return this._route.snapshot.queryParamMap.get(key) ?? ''
   }
 }

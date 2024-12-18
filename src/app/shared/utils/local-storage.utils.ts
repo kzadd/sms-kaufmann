@@ -4,7 +4,7 @@ import { LocalStorageOptions } from '../types/storage.types'
 /**
  * Deletes an item from localStorage by its key.
  */
-export const deleteLocalStorage = (key: string): void => {
+export const deleteLocalStorage = (key: string) => {
   try {
     localStorage.removeItem(key)
   } catch (error) {
@@ -16,7 +16,7 @@ export const deleteLocalStorage = (key: string): void => {
 /**
  * Retrieves an item from localStorage by its key.
  */
-export const getLocalStorage = <T = string>(key: string, options: LocalStorageOptions = {}): T | null => {
+export const getLocalStorage = <T = string>(key: string, options: LocalStorageOptions = {}) => {
   const { isBase64 = false, isJSON = false } = options
 
   try {
@@ -39,7 +39,7 @@ export const getLocalStorage = <T = string>(key: string, options: LocalStorageOp
 /**
  * Sets a value in localStorage.
  */
-export const putLocalStorage = (key: string, value: string | object, options: LocalStorageOptions = {}): void => {
+export const putLocalStorage = (key: string, value: string | object, options: LocalStorageOptions = {}) => {
   const { isBase64 = false, isJSON = false } = options
 
   try {

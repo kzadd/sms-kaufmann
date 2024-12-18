@@ -15,5 +15,5 @@ import { ToastService } from './infrastructure/toast.service'
   templateUrl: './toast.component.html'
 })
 export class ToastComponent {
-  toastService = inject(ToastService)
+  protected toastService = inject(ToastService)
 }

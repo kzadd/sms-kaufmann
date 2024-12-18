@@ -10,7 +10,7 @@ export class PathParamService {
   /**
    * Retrieve a specific path parameter from the URL.
    */
-  getPathParam(key: string): string {
+  getPathParam(key: string) {
     return this._route.snapshot.paramMap.get(key) ?? ''
   }
 }

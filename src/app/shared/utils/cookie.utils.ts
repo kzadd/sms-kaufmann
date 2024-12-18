@@ -6,7 +6,7 @@ import { CookieOptions } from '../types/storage.types'
 /**
  * Deletes a cookie by its key.
  */
-export const deleteCookie = (key: string): void => {
+export const deleteCookie = (key: string) => {
   try {
     Cookie.remove(key)
   } catch (error) {
@@ -18,7 +18,7 @@ export const deleteCookie = (key: string): void => {
 /**
  * Retrieves a cookie's value by its key.
  */
-export const getCookie = <T = string>(key: string, options: CookieOptions = {}): T | null => {
+export const getCookie = <T = string>(key: string, options: CookieOptions = {}) => {
   const { isBase64 = false, isJSON = false } = options
 
   try {
@@ -41,15 +41,10 @@ export const getCookie = <T = string>(key: string, options: CookieOptions = {}):
 /**
  * Sets a value in a cookie.
  */
-export const putCookie = (key: string, value: string | object, options: CookieOptions = {}): void => {
+export const putCookie = (key: string, value: string | object, options: CookieOptions = {}) => {
   const { domain, expires, isBase64 = false, isJSON = false, path = '/', secure = true } = options
 
-  const config = {
-    domain,
-    expires,
-    path,
-    secure
-  }
+  const config = { domain, expires, path, secure }
 
   try {
     const stringValue = isJSON ? JSON.stringify(value) : String(value)

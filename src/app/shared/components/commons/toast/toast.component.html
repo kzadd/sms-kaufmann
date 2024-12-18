@@ -1,6 +1,9 @@
-@for (toast of toastService.toast(); track toast) {
+@let toastRemove = toastService.remove;
+@let toasts = toastService.toast$();
+
+@for (toast of toasts; track $index) {
   <ngb-toast
-    (hidden)="toastService.remove(toast)"
+    (hidden)="toastRemove(toast)"
     [autohide]="true"
     [class]="{
       'Toast-danger': toast.severity === 'error',

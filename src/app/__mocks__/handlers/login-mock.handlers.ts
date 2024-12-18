@@ -7,8 +7,8 @@ interface LoginRequest {
   password: string
 }
 
-const ADMIN_EMAIL = 'test@admin.com'
-const ADMIN_PASSWORD = '123456'
+const CREDENTIALS_EMAIL = 'test@admin.com'
+const CREDENTIALS_PASSWORD = '123456'
 
 /**
  * Login mock handlers.
@@ -19,7 +19,7 @@ export const loginMock = [
 
     await delay(1000)
 
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    if (email === CREDENTIALS_EMAIL && password === CREDENTIALS_PASSWORD) {
       const successResponse = {
         errors: null,
         payload: {

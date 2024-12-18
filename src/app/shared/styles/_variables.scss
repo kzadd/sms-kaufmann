@@ -1,5 +1,8 @@
 @use 'functions' as *;
 
+/**
+ * Colors
+ */
 $grays: (
   100: #f8f9fa,
   200: #e9ecef,
@@ -149,13 +152,16 @@ $yellows: (
   900: shade(map-get($colors, 'yellow'), 80%)
 );
 
+/**
+ * Palette
+ */
 $palette: (
   'danger': map-get($colors, 'red'),
   'dark': #091227,
   'dark-muted': #2a2e3b,
   'dark-surface': #222834,
   'info': map-get($colors, 'cyan'),
-  'light': #bae4f7,
+  'light': map-get($grays, 100),
   'light-gray-blue': #eff2f6,
   'muted': #9fa6bc,
   'primary': #002463,

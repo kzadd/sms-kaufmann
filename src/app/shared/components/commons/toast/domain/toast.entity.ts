@@ -1,3 +1,6 @@
+/**
+ * Toast entity.
+ */
 export interface Toast {
   delay?: number
   message: string
