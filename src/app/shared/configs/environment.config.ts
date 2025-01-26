@@ -1,7 +1,11 @@
-import { env } from '@environments/environment'
+import { environment } from '@env/environment'
 
 /**
- * Environment configuration.
- * Stores the API base URL and the current environment mode (e.g., development, production).
+ * Environment configuration that manages API URLs and environment settings.
  */
-export const { API_BASE_URL = '', BASE_URL = '/', ENABLE_MOCKING = false, ENVIRONMENT = 'local' } = env
+export const env = {
+  API_URL: environment?.API_URL ?? '',
+  IS_MOCKING_ENABLED: environment?.IS_MOCKING_ENABLED ?? 'false',
+  MODE: environment?.MODE ?? 'local',
+  ROOT_URL: environment?.ROOT_URL ?? '/'
+}

@@ -1,0 +1,109 @@
+.login-auth {
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  .login-auth__wave-pattern {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .login-auth__container {
+    align-items: center;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    max-width: 80rem;
+    padding: 2rem; // TODO: change to theme
+    position: relative;
+
+    .login-auth__welcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .login-auth__profile-icon {
+        height: 4rem;
+        width: 4rem;
+      }
+
+      .login-auth__welcome-title {
+        color: #1a223d; // TODO: change to theme
+        font-size: 2.25rem;
+        font-weight: 700;
+      }
+
+      .login-auth__welcome-description {
+        color: #888888; // TODO: change to theme
+        font-size: 1.15rem;
+      }
+    }
+
+    .login-auth__form-container {
+      background-color: #fff; // TODO: change to theme
+      border-radius: 1rem;
+      box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1); // TODO: change to theme
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 4rem;
+
+      .login-auth__logo {
+        height: auto;
+        width: 12.75rem;
+      }
+
+      .login-auth__form-title {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .login-auth__title {
+          color: var(--kauf-dark-surface);
+          font-size: 1.5rem;
+          font-weight: 600;
+          letter-spacing: -0.1rem;
+          margin: 0;
+        }
+
+        .login-auth__description {
+          color: var(--kauf-gray-700);
+          font-size: 0.8rem;
+          margin: 0;
+        }
+      }
+
+      .login-auth__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .input-group-text {
+          cursor: pointer;
+        }
+      }
+    }
+
+    @media (min-width: 1200px) {
+      // TODO: change to theme
+      gap: 10rem;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      // TODO: change to theme
+      padding: 1.5rem;
+
+      .login-auth__form-container {
+        padding: 2rem; // TODO: change to theme
+      }
+    }
+  }
+}

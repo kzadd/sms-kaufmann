@@ -1,7 +1,4 @@
-/**
- * A collection of route paths.
- */
-export const routePaths = {
+export const ROUTE_PATHS = {
   auth: 'auth',
   dashboard: 'dashboard',
   login: 'login',

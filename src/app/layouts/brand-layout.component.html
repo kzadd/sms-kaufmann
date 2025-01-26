@@ -1,0 +1,15 @@
+<div class="brand-layout">
+  <app-topbar-container (toggleSidebar)="handleToggleSidebar()" />
+
+  <div class="brand-layout__body">
+    <app-sidebar-container (closeSidebar)="handleCloseSidebar()" [sidebarCollapsed]="sidebarCollapsed" />
+
+    @if (overlaySidebar) {
+      <div (click)="handleCloseSidebar()" class="brand-layout__overlay"></div>
+    }
+
+    <main class="brand-layout__content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

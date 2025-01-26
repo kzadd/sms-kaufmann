@@ -70,16 +70,13 @@
             "browser": "src/main.ts",
             "index": "src/index.html",
             "inlineStyleLanguage": "scss",
-            "outputPath": "dist/mensajeria-kaufmann",
-            "polyfills": ["@angular/localize/init"],
+            "outputPath": "dist/ccs-mantenedores",
+            "polyfills": ["zone.js"],
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["src/app"]
             },
-            "styles": [
-              "src/app/shared/styles/globals.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
-            ],
+            "styles": ["src/app/shared/styles/globals.scss"],
             "tsConfig": "tsconfig.app.json"
           }
         },

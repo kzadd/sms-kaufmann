@@ -1,8 +1,0 @@
-export * from './application/sms-send.actions'
-export * from './application/sms-send.types'
-export * from './domain/sms-send.entity'
-export { ApiSmsSendRepository } from './infrastructure/sms-send.service'
-export { SmsSendContainerComponent as SmsSendContainer } from './sms-send-container.component'
-export { SmsSendEffect } from './application/sms-send.effect'
-export { smsSendFeature } from './application/sms-send.feature'
-export { SmsSendRepository } from './domain/sms-send.repository'

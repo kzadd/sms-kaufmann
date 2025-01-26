@@ -1,15 +1,14 @@
 import { Routes } from '@angular/router'
 
 import { authGuard } from './core/guards/auth.guard'
-import { routePaths } from './shared/constants/routes.constant'
+import { FULL_ROUTE_PATHS } from './shared/constants/app.constant'
+import { ROUTE_PATHS } from './shared/constants/routes.constant'
 
-const BrandLayout = () =>
-  import('./presentation/layouts/brand/brand-layout.component').then(m => m.BrandLayoutComponent)
-
-const LoginPage = () => import('./presentation/pages/login-page.component').then(m => m.LoginPageComponent)
-const NotFoundPage = () => import('./presentation/pages/not-found-page.component').then(m => m.NotFoundPageComponent)
-const PushSendPage = () => import('./presentation/pages/push-send-page.component').then(m => m.PushSendPageComponent)
-const SmsSendPage = () => import('./presentation/pages/sms-send-page.component').then(m => m.SmsSendPageComponent)
+const BrandLayout = () => import('./layouts/brand-layout.component').then(m => m.BrandLayoutComponent)
+const LoginPage = () => import('./features/login').then(m => m.LoginPage)
+const NotFoundPage = () => import('./features/not-found').then(m => m.NotFoundPage)
+const PushSendPage = () => import('./features/push-send').then(m => m.PushSendPage)
+const SmsSendPage = () => import('./features/sms-send').then(m => m.SmsSendPage)
 
 /**
  * Routes configuration.
@@ -17,46 +16,46 @@ const SmsSendPage = () => import('./presentation/pages/sms-send-page.component')
  */
 export const routes: Routes = [
   {
-    path: routePaths.root,
-    pathMatch: 'full',
-    redirectTo: `${routePaths.dashboard}/${routePaths.smsSend}`
-  },
-  {
     children: [
       {
-        path: routePaths.root,
+        path: ROUTE_PATHS.root,
         pathMatch: 'full',
-        redirectTo: routePaths.login
+        redirectTo: ROUTE_PATHS.login
       },
       {
         loadComponent: LoginPage,
-        path: routePaths.login
+        path: ROUTE_PATHS.login
       }
     ],
-    path: routePaths.auth
+    path: ROUTE_PATHS.auth
+  },
+  {
+    path: ROUTE_PATHS.root,
+    pathMatch: 'full',
+    redirectTo: FULL_ROUTE_PATHS.smsSend.root
   },
   {
     canActivate: [authGuard],
     children: [
       {
-        path: routePaths.root,
+        path: ROUTE_PATHS.root,
         pathMatch: 'full',
-        redirectTo: routePaths.smsSend
+        redirectTo: ROUTE_PATHS.smsSend
       },
       {
         loadComponent: SmsSendPage,
-        path: routePaths.smsSend
+        path: ROUTE_PATHS.smsSend
       },
       {
         loadComponent: PushSendPage,
-        path: routePaths.pushSend
+        path: ROUTE_PATHS.pushSend
       }
     ],
     loadComponent: BrandLayout,
-    path: routePaths.dashboard
+    path: ROUTE_PATHS.dashboard
   },
   {
     loadComponent: NotFoundPage,
-    path: routePaths.notFound
+    path: ROUTE_PATHS.notFound
   }
 ]

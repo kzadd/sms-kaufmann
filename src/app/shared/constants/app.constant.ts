@@ -1,11 +1,31 @@
-export const ALLOWED_FILE_TYPES = [
-  'application/vnd.ms-excel',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  'text/csv'
-]
-export const CREDENTIALS_TEST_EMAIL = 'test@admin.com'
-export const CREDENTIALS_TEST_PASSWORD = '123456'
-export const MAX_FILE_SIZE_MB = 20
-export const SEND_TEST_DNI = '12345678-9'
-export const SEND_TEST_MESSAGE = 'Hola, este es un mensaje de prueba.'
-export const SEND_TEST_PHONE = '+56948977354'
+import { ROUTE_PATHS } from './routes.constant'
+
+export const DEFAULT_CREDENTIALS = {
+  password: '123456',
+  username: 'kzadd'
+}
+
+export const FULL_ROUTE_PATHS = {
+  auth: {
+    login: `/${ROUTE_PATHS.auth}/${ROUTE_PATHS.login}`
+  },
+  dashboard: {
+    root: `/${ROUTE_PATHS.dashboard}`
+  },
+  pushSend: {
+    root: `/${ROUTE_PATHS.dashboard}/${ROUTE_PATHS.pushSend}`
+  },
+  smsSend: {
+    root: `/${ROUTE_PATHS.dashboard}/${ROUTE_PATHS.smsSend}`
+  }
+}
+
+export const TOKEN_KEYS = {
+  accessToken: 'access_token',
+  refreshToken: 'refresh_token'
+}
+
+export const TOKENS = {
+  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+  refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
+}

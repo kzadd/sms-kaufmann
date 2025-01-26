@@ -1,19 +1,19 @@
 import { inject } from '@angular/core'
 import { CanActivateFn, Router } from '@angular/router'
 
-import { routePaths } from '@shared/constants/routes.constant'
-import { getCookie } from '@shared/utils/cookie.utils'
+import { FULL_ROUTE_PATHS } from '@app/shared/constants/app.constant'
+import { getCookie } from '@app/shared/utils/cookie.utils'
 
 /**
- * Auth guard to check if the user is authenticated.
+ * Guard that checks if user is authenticated via access token.
+ * Redirects to login page if not authenticated.
  */
-export const authGuard: CanActivateFn = () => {
-  const access_token = getCookie('access_token')
-  const isAuthenticated = !!access_token
+export const authGuard: CanActivateFn = (): boolean => {
+  const accessToken = getCookie('access_token')
   const router = inject(Router)
 
-  if (!isAuthenticated) {
-    router.navigate([`/${routePaths.auth}/${routePaths.login}`])
+  if (!accessToken) {
+    router.navigate([FULL_ROUTE_PATHS.auth.login])
 
     return false
   }

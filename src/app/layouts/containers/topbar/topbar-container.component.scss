@@ -1,0 +1,79 @@
+.topbar {
+  align-items: center;
+  background-color: #ffffff; // TODO: change to theme
+  box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1); // TODO: change to theme
+  display: flex;
+  gap: 1rem;
+  min-height: 5rem; // TODO: change to theme
+  padding: 0 2rem; // TODO: change to theme
+  position: relative;
+
+  .topbar__logo-link {
+    align-items: center;
+    color: currentColor;
+    display: flex;
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: 600;
+    gap: 0.8rem;
+    letter-spacing: -0.1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    .topbar__logo {
+      height: 2.5rem;
+      width: auto;
+    }
+
+    .topbar__logo-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+  }
+
+  .topbar__menu--toggle {
+    cursor: pointer;
+    display: flex;
+  }
+
+  .topbar__profile {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.875rem;
+    font-weight: 600;
+    gap: 0.5rem;
+    height: calc(5rem - 1rem); // TODO: change to theme
+    margin-left: auto;
+
+    .topbar__dropdown {
+      background-color: #ffffff; // TODO: change to theme
+      border-radius: 0.5rem;
+      box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1); // TODO: change to theme
+      display: none;
+      min-width: 12rem;
+      overflow: hidden;
+      position: absolute;
+      right: 2rem;
+      top: 85%;
+      z-index: 10;
+
+      .topbar__dropdown-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .topbar__dropdown-item {
+          padding: 1rem;
+        }
+      }
+
+      &.topbar__dropdown--show {
+        display: block;
+      }
+    }
+  }
+}

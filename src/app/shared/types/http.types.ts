@@ -1,6 +1,13 @@
-export interface ApiResponse<T = unknown> extends NetworkHttpResponse<ServiceResponse<T>> {}
+import { HttpHeaders } from '@angular/common/http'
 
-export interface HttpHeadersOptions {
+export interface ApiResponse<T> extends NetworkResponse<ServiceResponse<T>> {}
+export type HttpMethod = 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT'
+
+export interface NetworkResponse<T> {
+  data: T
+}
+
+export interface RequestHeadersOptions {
   body?: Record<string, unknown>
   contentType?: string
   customHeaders?: Record<string, string>
@@ -8,21 +15,16 @@ export interface HttpHeadersOptions {
   token?: string
 }
 
-export type HttpMethod = 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT'
-
-export interface HttpRequestOptions {
+export interface RequestOptions {
   data?: string
-  headers: Record<string, string>
+  headers: HttpHeaders
   method: HttpMethod
   url: string
 }
 
-export interface NetworkHttpResponse<T> {
-  data: T
-}
-
-export interface ServiceResponse<T = unknown> {
-  errors: null | string[]
-  payload: T
-  success: string
-}
+/**
+ * Service response type, this change according to the service response
+ * @param T - The type of the response data
+ * @returns The response data
+ */
+export type ServiceResponse<T> = T

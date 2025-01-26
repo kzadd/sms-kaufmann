@@ -1,18 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http'
 
-export interface BaseError {
+export interface AppError {
   code: number | null
   originalError: Error | HttpErrorResponse | null
   reason: string | null
 }
 
-export interface CreateErrorOptions {
+export interface ErrorOptions {
   code?: number | null
   originalError?: Error | HttpErrorResponse | null
   reason?: string | null
 }
 
-export interface CreateErrorResponse extends BaseError {
+export interface ErrorResponse extends AppError {
   toJSON: () => string
-  toObject: () => BaseError
+  toObject: () => AppError
 }

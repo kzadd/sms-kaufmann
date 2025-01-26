@@ -1,30 +1,25 @@
 import { HttpErrorResponse } from '@angular/common/http'
 
-import { BaseError, CreateErrorOptions, CreateErrorResponse } from '../types/exception.types'
+import { AppError, ErrorOptions, ErrorResponse } from '../types/exception.types'
 
 /**
- * Factory function that creates a standardized error.
- * This function helps to create an error with a consistent structure, which can be serialized and converted.
+ * Creates a standardized error object with consistent structure.
  */
-export const createError = (options: CreateErrorOptions): CreateErrorResponse => {
-  const { code, originalError, reason } = options
-
+export const createError = ({ code, originalError, reason }: ErrorOptions): ErrorResponse => {
   const isNetworkError = originalError instanceof HttpErrorResponse
-
-  const errorCode = code ?? (isNetworkError ? (originalError.status ?? null) : null)
-  const errorInstance = originalError ?? null
-  const errorReason = reason ?? (isNetworkError ? originalError.message : null)
+  const errorCode: number | null = code ?? (isNetworkError ? (originalError.status ?? null) : null)
+  const errorReason: string | null = reason ?? (isNetworkError ? originalError.message : null)
 
   return {
     code: errorCode,
-    originalError: errorInstance,
+    originalError: originalError ?? null,
     reason: errorReason,
 
     toJSON(): string {
       return JSON.stringify(this.toObject())
     },
 
-    toObject(): BaseError {
+    toObject(): AppError {
       return {
         code: this.code,
         originalError: this.originalError,

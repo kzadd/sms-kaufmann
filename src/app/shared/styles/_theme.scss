@@ -1,17 +1,19 @@
+@use 'sass:map';
+
 @use 'variables' as *;
 
-$body-color: map-get($palette, dark-surface);
+$body-color: map.get($palette, dark-surface);
 
-$theme-colors: map-merge(
+$theme-colors: map.merge(
   $palette,
   (
-    'danger': map-get($palette, danger),
-    'dark': map-get($palette, dark),
-    'info': map-get($palette, info),
-    'light': map-get($palette, light),
-    'primary': map-get($palette, primary),
-    'secondary': map-get($palette, secondary),
-    'success': map-get($palette, success),
-    'warning': map-get($palette, warning)
+    'danger': map.get($palette, danger),
+    'dark': map.get($palette, dark),
+    'info': map.get($palette, info),
+    'light': map.get($palette, light),
+    'primary': map.get($palette, primary),
+    'secondary': map.get($palette, secondary),
+    'success': map.get($palette, success),
+    'warning': map.get($palette, warning)
   )
 );

@@ -1,0 +1,67 @@
+.sidebar {
+  background-color: #1a223d; // TODO: change to theme
+  height: 100vh;
+  overflow-y: auto;
+  padding: calc(2rem - 1rem); // TODO: change to theme
+  transition: all 0.2s ease;
+  width: 18.75rem; // TODO: change to theme
+
+  &.sidebar--collapsed {
+    transform: translateX(0);
+  }
+
+  .sidebar__navigation {
+    padding: 1rem 0;
+
+    .sidebar__menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0;
+
+      .sidebar__menu-item {
+        .sidebar__menu-link {
+          align-items: center;
+          border-radius: 0.5rem;
+          color: #f8f8f8; // TODO: change to theme
+          display: flex;
+          font-size: 0.875rem;
+          gap: 0.5rem;
+          height: 100%;
+          min-height: 2.75rem;
+          padding: 0.5rem 1rem;
+          text-decoration: none;
+          transition: all 0.2s ease;
+
+          &.sidebar__menu-link--active,
+          &:hover {
+            background-color: #f8f8f8; // TODO: change to theme
+            color: #1a223d; // TODO: change to theme
+            font-weight: 600;
+          }
+        }
+
+        &.sidebar__menu-item--empty .sidebar__menu-empty-label {
+          align-items: center;
+          color: #f8f8f8; // TODO: change to theme
+          display: flex;
+          font-size: 0.875rem;
+          font-weight: 600;
+          min-height: 2.75rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    // TODO: change to theme
+    box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1); // TODO: change to theme
+    height: calc(100vh - 5rem); // TODO: change to theme
+    left: 0;
+    position: absolute;
+    top: 5rem;
+    transform: translateX(-100%);
+    z-index: 10;
+  }
+}

@@ -1,12 +1,18 @@
-import { ENABLE_MOCKING } from '@shared/configs/environment.config'
+import { env } from '../shared/configs/environment.config'
 
 /**
- * Initializes mock service workers if the environment variable `enableMocking` is set to 'true'.
+ * Initializes mock service worker to intercept API requests.
+ * Only runs when mocking is enabled in environment config.
  */
 export const initializeMockServiceWorker = async () => {
-  if (!ENABLE_MOCKING) return
+  if (!env.IS_MOCKING_ENABLED) return
 
-  const { worker } = await import('./browser.mock')
+  try {
+    const { worker } = await import('./browser.mock')
 
-  return worker.start()
+    await worker.start()
+    console.log('Mock service worker started.')
+  } catch (error) {
+    console.error('Failed to start mock service worker:', error)
+  }
 }

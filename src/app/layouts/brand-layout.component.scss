@@ -1,0 +1,25 @@
+.brand-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+
+  .brand-layout__body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    .brand-layout__overlay {
+      background-color: rgba(#000, 0.5);
+      height: 100vh;
+      position: fixed;
+      width: 100vw;
+      z-index: 2;
+    }
+
+    .brand-layout__content {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+}

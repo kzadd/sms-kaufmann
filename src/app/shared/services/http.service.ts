@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { Observable, throwError } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 
-import { HttpHeadersOptions, HttpMethod, HttpRequestOptions, NetworkHttpResponse } from '../types/http.types'
+import { HttpMethod, NetworkResponse, RequestHeadersOptions, RequestOptions } from '../types/http.types'
 import { getCookie } from '../utils/cookie.utils'
 
 @Injectable({
@@ -13,25 +13,25 @@ export class HttpService {
   private _http = inject(HttpClient)
 
   /**
-   * Creates headers for HTTP requests.
+   * Creates and configures HTTP headers.
    */
-  private createHeaders({
+  private _createHeaders({
     contentType = 'application/json',
     customHeaders = {},
     isPublic = false,
     token
-  }: HttpHeadersOptions): Record<string, string> {
-    const headers: Record<string, string> = { ...customHeaders }
+  }: RequestHeadersOptions): HttpHeaders {
+    let headers = new HttpHeaders(customHeaders)
 
     if (contentType) {
-      headers['Content-Type'] = contentType
+      headers = headers.set('Content-Type', contentType)
     }
 
     if (!isPublic) {
       const accessToken = token ?? getCookie('access_token') ?? ''
 
       if (accessToken) {
-        headers['Authorization'] = `Bearer ${accessToken}`
+        headers = headers.set('Authorization', `Bearer ${accessToken}`)
       }
     }
 
@@ -39,51 +39,70 @@ export class HttpService {
   }
 
   /**
-   * Creates a request to an API endpoint.
+   * Makes an HTTP request to the specified endpoint and transforms the response.
    */
-  private createRequest<T>({ data, headers, method, url }: HttpRequestOptions): Observable<NetworkHttpResponse<T>> {
+  private _createRequest<T>({ data, headers, method, url }: RequestOptions): Observable<NetworkResponse<T>> {
     return this._http.request<T>(method, url, { body: data, headers }).pipe(
       map(response => ({ data: response })),
-      catchError(error => {
-        console.error(`Request to ${url} failed`, error)
-        return throwError(() => error)
-      })
+      catchError((error: HttpErrorResponse) => this._generateError(url, error))
     )
   }
 
   /**
-   * Factory function that creates a request to an API endpoint.
+   * Creates and configures HTTP requests with proper headers and body formatting.
+   * Acts as a central factory for all HTTP methods.
    */
-  private factoryRequest<T>(method: HttpMethod, options: HttpHeadersOptions = {}, url: string) {
+  private _factoryRequest<T>(
+    method: HttpMethod,
+    options: RequestHeadersOptions = {},
+    url: string
+  ): Observable<NetworkResponse<T>> {
     const { body, ...restOptions } = options
 
-    const headers = this.createHeaders(restOptions)
-    const data = body && JSON.stringify(body)
+    const headers = this._createHeaders(restOptions)
+    const data = body ? JSON.stringify(body) : undefined
 
-    return this.createRequest<T>({ data, headers, method, url })
+    return this._createRequest<T>({ data, headers, method, url })
   }
 
   /**
-   * Collection of HTTP request methods for making JSON API calls.
-   * Each method handles a specific HTTP verb (DELETE, GET, PATCH, POST, PUT).
+   * Logs HTTP errors and returns an error Observable for error handling.
    */
-  deleteJsonRequest<T>(url: string, options?: HttpHeadersOptions) {
-    return this.factoryRequest<T>('DELETE', options, url)
+  private _generateError(url: string, error: HttpErrorResponse): Observable<never> {
+    console.error(`Request to ${url} failed`, error)
+
+    return throwError(() => error)
   }
 
-  getJsonRequest<T>(url: string, options?: HttpHeadersOptions) {
-    return this.factoryRequest<T>('GET', options, url)
+  /**
+   * Creates and configures HTTP requests with proper headers and body formatting.
+   * Acts as a central factory for all HTTP methods.
+   */
+  request<T>(method: HttpMethod, url: string, options?: RequestHeadersOptions): Observable<NetworkResponse<T>> {
+    return this._factoryRequest<T>(method, options, url)
   }
 
-  patchJsonRequest<T>(url: string, options?: HttpHeadersOptions) {
-    return this.factoryRequest<T>('PATCH', options, url)
+  /**
+   * Provides HTTP methods (DELETE, GET, PATCH, POST, PUT) for making API requests.
+   * Each method uses the factory to ensure consistent request handling.
+   */
+  delete<T>(url: string, options?: RequestHeadersOptions): Observable<NetworkResponse<T>> {
+    return this.request<T>('DELETE', url, options)
   }
 
-  postJsonRequest<T>(url: string, options?: HttpHeadersOptions) {
-    return this.factoryRequest<T>('POST', options, url)
+  get<T>(url: string, options?: RequestHeadersOptions): Observable<NetworkResponse<T>> {
+    return this.request<T>('GET', url, options)
   }
 
-  putJsonRequest<T>(url: string, options?: HttpHeadersOptions) {
-    return this.factoryRequest<T>('PUT', options, url)
+  patch<T>(url: string, options?: RequestHeadersOptions): Observable<NetworkResponse<T>> {
+    return this.request<T>('PATCH', url, options)
+  }
+
+  post<T>(url: string, options?: RequestHeadersOptions): Observable<NetworkResponse<T>> {
+    return this.request<T>('POST', url, options)
+  }
+
+  put<T>(url: string, options?: RequestHeadersOptions): Observable<NetworkResponse<T>> {
+    return this.request<T>('PUT', url, options)
   }
 }
