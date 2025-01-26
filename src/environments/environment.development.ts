@@ -1,9 +1,10 @@
 /**
- * Environment development configuration.
+ * Development environment configuration.
+ * Contains API endpoints, environment flags and application settings.
  */
-export const env = {
-  API_BASE_URL: 'http://localhost:3000/api',
-  BASE_URL: '/',
-  ENABLE_MOCKING: false,
-  ENVIRONMENT: 'dev'
+export const environment = {
+  API_URL: 'http://localhost:3000',
+  IS_MOCKING_ENABLED: false,
+  MODE: 'development',
+  ROOT_URL: '/'
 }

@@ -1,15 +1,12 @@
-import eslint from '@eslint/js'
 import angular from 'angular-eslint'
+import eslint from '@eslint/js'
+import globals from 'globals'
 import prettier from 'eslint-plugin-prettier'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import sortExports from 'eslint-plugin-sort-exports'
-import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
-/**
- * ESLint configuration.
- */
-export default tseslint.config(
+const eslintConfig = tseslint.config(
   {
     ignores: ['coverage', 'dist', 'node_modules'],
     settings: {
@@ -25,7 +22,7 @@ export default tseslint.config(
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended
     ],
-    files: ['**/*.{js,ts}'],
+    files: ['**/*.ts'],
     languageOptions: {
       ecmaVersion: 'latest',
       globals: {
@@ -56,6 +53,7 @@ export default tseslint.config(
           type: 'attribute'
         }
       ],
+      '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -75,11 +73,7 @@ export default tseslint.config(
       'simple-import-sort/imports': [
         'warn',
         {
-          groups: [
-            ['^\\u0000'],
-            ['^@angular', '^node:', '^@?\\w'],
-            ['^@core', '^@mocks', '^@presentation', '^@shared', '^\\.']
-          ]
+          groups: [['^\\u0000'], ['^@angular', '^node:', '^@?\\w'], ['^@app', '^@env', '^\\.']]
         }
       ],
       'sort-exports/sort-exports': [
@@ -103,6 +97,12 @@ export default tseslint.config(
   },
   {
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
-    files: ['**/*.html']
+    files: ['**/*.html'],
+    rules: {
+      '@angular-eslint/template/click-events-have-key-events': 'off',
+      '@angular-eslint/template/interactive-supports-focus': 'off'
+    }
   }
 )
+
+export default eslintConfig

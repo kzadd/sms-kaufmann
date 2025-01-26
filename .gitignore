@@ -16,15 +16,15 @@ coverage/
 .idea/
 .vscode/
 
-# Environment variables
-*.local
-.env
-
-# Ignore .vscode except specific configurations
+# Allow shared configurations in .vscode
 !.vscode/extensions.json
 !.vscode/launch.json
 !.vscode/settings.json
 !.vscode/tasks.json
+
+# Environment variables
+*.local
+.env
 
 # Ignore Angular service worker files
 ngsw-config.json
@@ -37,10 +37,11 @@ worker-basic.min.js
 .sass-cache/
 bazel-out/
 build/
-dist-ssr/
 dist/
+dist-ssr/
 node_modules/
 out-tsc/
+server/
 typings/
 
 # Ignore generated Angular files
@@ -71,6 +72,7 @@ yarn-error.log*
 Thumbs.db
 
 # Optional lock files
+bun.lockb
 package-lock.json
 pnpm-lock.yaml
 yarn.lock

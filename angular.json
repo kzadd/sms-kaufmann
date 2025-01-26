@@ -12,16 +12,25 @@
           "builder": "@angular-devkit/build-angular:application",
           "configurations": {
             "development": {
+              "budgets": [
+                {
+                  "maximumError": "1MB",
+                  "maximumWarning": "500kB",
+                  "type": "initial"
+                },
+                {
+                  "maximumError": "8kB",
+                  "maximumWarning": "4kB",
+                  "type": "anyComponentStyle"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.development.ts"
                 }
               ],
-              "namedChunks": false,
-              "optimization": false,
-              "outputHashing": "none",
-              "sourceMap": true
+              "outputHashing": "all"
             },
             "local": {
               "fileReplacements": [
@@ -30,23 +39,24 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
-              "namedChunks": false,
               "optimization": false,
-              "outputHashing": "none",
+              "extractLicenses": false,
               "sourceMap": true
             },
             "production": {
               "budgets": [
                 {
-                  "maximumError": "5MB",
-                  "maximumWarning": "2MB",
+                  "maximumError": "1MB",
+                  "maximumWarning": "500kB",
                   "type": "initial"
+                },
+                {
+                  "maximumError": "8kB",
+                  "maximumWarning": "4kB",
+                  "type": "anyComponentStyle"
                 }
               ],
-              "namedChunks": true,
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production",
@@ -79,7 +89,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": ["src/**/*.html", "src/**/*.scss", "src/**/*.ts"]
           }
         },
         "serve": {
@@ -107,8 +117,11 @@
               }
             ],
             "inlineStyleLanguage": "scss",
-            "polyfills": ["@angular/localize/init"],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app"]
+            },
             "styles": ["src/app/shared/styles/globals.scss"],
             "tsConfig": "tsconfig.spec.json"
           }
