@@ -1,0 +1,45 @@
+<div class="push-send-massive">
+  <form [formGroup]="form" class="push-send-massive__form">
+    <div class="form-group">
+      <label for="app" class="form-label">Aplicación</label>
+
+      <select [class.is-invalid]="getErrorMessage('app')" formControlName="app" id="app" name="app" class="form-select">
+        <option hidden selected value="">Seleccione una aplicación</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+
+      <div class="invalid-feedback">{{ getErrorMessage('app') }}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="file" class="form-label">Archivo</label>
+
+      <input
+        [class.is-invalid]="getErrorMessage('file')"
+        accept=".csv,.xlsx,.xls"
+        class="form-control"
+        formControlName="file"
+        id="file"
+        name="file"
+        placeholder="Ingrese su archivo"
+        type="file"
+      />
+
+      <div class="invalid-feedback">{{ getErrorMessage('file') }}</div>
+    </div>
+  </form>
+
+  <div class="push-send-massive__actions">
+    <button (click)="handleSend()" class="btn btn-primary">
+      <ng-icon name="sendIcon" />
+      Enviar Push
+    </button>
+
+    <button (click)="handleClearForm()" class="btn btn-secondary">
+      <ng-icon name="cancelIcon" />
+      Limpiar formulario
+    </button>
+  </div>
+</div>

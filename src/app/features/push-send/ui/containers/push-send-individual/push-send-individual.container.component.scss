@@ -1,0 +1,27 @@
+.push-send-individual {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  min-height: 22rem;
+
+  .push-send-individual__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-group {
+      max-width: 43.75rem;
+      width: 100%;
+    }
+  }
+
+  .push-send-individual__actions {
+    display: flex;
+    gap: 1rem;
+
+    .btn {
+      min-width: 9.375rem;
+    }
+  }
+}

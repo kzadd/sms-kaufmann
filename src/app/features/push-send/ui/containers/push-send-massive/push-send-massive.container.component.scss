@@ -1,0 +1,43 @@
+@use 'shared/styles/theme' as *;
+
+.push-send-massive {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
+  min-height: 22rem;
+
+  .push-send-massive__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-group {
+      max-width: 43.75rem;
+      width: 100%;
+
+      input[type='file'] {
+        &::file-selector-button {
+          border-radius: 0.5rem;
+          border: none;
+          color: $text-dark;
+          cursor: pointer;
+          font-size: 0.875rem;
+          font-weight: 500;
+          margin-right: 1rem;
+          padding: 0.625rem 1.25rem;
+          transition: all 0.3s ease;
+        }
+      }
+    }
+  }
+
+  .push-send-massive__actions {
+    display: flex;
+    gap: 1rem;
+
+    .btn {
+      min-width: 9.375rem;
+    }
+  }
+}
