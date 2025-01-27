@@ -8,13 +8,15 @@ export interface PushSendIndividual {
 }
 
 export type PushSendIndividualForm = FormControlGroup<PushSendIndividual>
+export type PushSendIndividualKey = Extract<keyof PushSendIndividual, string>
 
 export interface PushSendMassive {
   app: string
-  file: File
+  file: File | null
 }
 
 export type PushSendMassiveForm = FormControlGroup<PushSendMassive>
+export type PushSendMassiveKey = Extract<keyof PushSendMassive, string>
 
 export interface PushSendState {
   error: AppError | null
