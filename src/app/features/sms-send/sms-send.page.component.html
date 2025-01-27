@@ -5,4 +5,28 @@
     Envía mensajes SMS de forma individual o masiva a tus clientes. Gestiona tus comunicaciones de manera eficiente y
     mantén informados a tus destinatarios.
   </p>
+
+  <div class="sms-send__content">
+    <ul #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs sms-send__tabs" ngbNav>
+      <li [ngbNavItem]="'individual'">
+        <button ngbNavLink class="sms-send__tab">Individual</button>
+
+        <ng-template ngbNavContent>
+          <app-sms-send-individual-container />
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="'masivo'">
+        <button ngbNavLink class="sms-send__tab">Masivo</button>
+
+        <ng-template ngbNavContent>
+          <app-sms-send-massive-container />
+        </ng-template>
+      </li>
+    </ul>
+
+    <div class="sms-send__outlet">
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </div>
 </div>
