@@ -1,0 +1,32 @@
+<div class="sms-send-massive">
+  <form [formGroup]="form" class="sms-send-massive__form">
+    <div class="form-group">
+      <label for="file" class="form-label">Archivo</label>
+
+      <input
+        [class.is-invalid]="getErrorMessage('file')"
+        accept=".csv,.xlsx,.xls"
+        class="form-control"
+        formControlName="file"
+        id="file"
+        name="file"
+        placeholder="Ingrese su archivo"
+        type="file"
+      />
+
+      <div class="invalid-feedback">{{ getErrorMessage('file') }}</div>
+    </div>
+  </form>
+
+  <div class="sms-send-massive__actions">
+    <button (click)="handleSend()" class="btn btn-primary">
+      <ng-icon name="sendIcon" />
+      Enviar SMS
+    </button>
+
+    <button (click)="handleClearForm()" class="btn btn-secondary">
+      <ng-icon name="cancelIcon" />
+      Limpiar formulario
+    </button>
+  </div>
+</div>

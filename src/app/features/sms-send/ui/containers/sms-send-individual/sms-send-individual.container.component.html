@@ -1,0 +1,46 @@
+<div class="sms-send-individual">
+  <form [formGroup]="form" class="sms-send-individual__form">
+    <div class="form-group">
+      <label for="phone" class="form-label">Teléfono</label>
+
+      <input
+        [class.is-invalid]="getErrorMessage('phone')"
+        class="form-control"
+        formControlName="phone"
+        id="phone"
+        name="phone"
+        placeholder="Ingrese su teléfono"
+      />
+
+      <div class="invalid-feedback">{{ getErrorMessage('phone') }}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="message" class="form-label">Mensaje</label>
+
+      <textarea
+        [class.is-invalid]="getErrorMessage('message')"
+        class="form-control"
+        formControlName="message"
+        id="message"
+        rows="5"
+        name="message"
+        placeholder="Ingrese su mensaje"
+      ></textarea>
+
+      <div class="invalid-feedback">{{ getErrorMessage('message') }}</div>
+    </div>
+  </form>
+
+  <div class="sms-send-individual__actions">
+    <button (click)="handleSend()" class="btn btn-primary">
+      <ng-icon name="sendIcon" />
+      Enviar SMS
+    </button>
+
+    <button (click)="handleClearForm()" class="btn btn-secondary">
+      <ng-icon name="cancelIcon" />
+      Limpiar formulario
+    </button>
+  </div>
+</div>
