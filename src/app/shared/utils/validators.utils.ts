@@ -5,7 +5,25 @@ const errorMessages = {
   maxLength: (length: number) => `Este campo no puede exceder los ${length} caracteres.`,
   minLength: (length: number) => `Este campo debe tener al menos ${length} caracteres.`,
   number: 'Este campo solo acepta números.',
+  phoneNumber: 'Ingrese un número de teléfono válido',
   required: 'Este campo es obligatorio.'
+}
+
+/**
+ * Custom validator to check if input value is a valid Chilean phone number.
+ * Format: 56 + 9 + 8 digits (e.g. 56975833156)
+ */
+export const isChileanPhone: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  if (!control.value) return null
+
+  const phoneRegex = /^56(9)\d{8}$/
+  const isValid = phoneRegex.test(control.value.trim())
+
+  const error = {
+    phoneNumber: errorMessages.phoneNumber
+  }
+
+  return isValid ? null : error
 }
 
 /**
