@@ -6,7 +6,8 @@ const errorMessages = {
   minLength: (length: number) => `Este campo debe tener al menos ${length} caracteres.`,
   number: 'Este campo solo acepta números.',
   phoneNumber: 'Ingrese un número de teléfono válido',
-  required: 'Este campo es obligatorio.'
+  required: 'Este campo es obligatorio.',
+  rut: 'Ingrese un RUT válido.'
 }
 
 /**
@@ -24,6 +25,40 @@ export const isChileanPhone: ValidatorFn = (control: AbstractControl): Validatio
   }
 
   return isValid ? null : error
+}
+
+/**
+ * Custom validator to check if input value is a valid Chilean RUT.
+ * Format: 12345678-9 or 12.345.678-9
+ */
+export const isChileanRut: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  if (!control.value) return null
+
+  const cleanRut = control.value.toString().replace(/[.-]/g, '').toUpperCase()
+
+  if (!/^[0-9]{7,8}[0-9K]$/.test(cleanRut)) {
+    return { rut: errorMessages.rut }
+  }
+
+  const rutDigits = cleanRut.slice(0, -1)
+  const dv = cleanRut.slice(-1)
+
+  let sum = 0
+  let multiplier = 2
+
+  for (let i = rutDigits.length - 1; i >= 0; i--) {
+    sum += parseInt(rutDigits[i]) * multiplier
+    multiplier = multiplier === 7 ? 2 : multiplier + 1
+  }
+
+  const expectedDV = 11 - (sum % 11)
+  const calculatedDV = expectedDV === 11 ? '0' : expectedDV === 10 ? 'K' : expectedDV.toString()
+
+  const error = {
+    rut: errorMessages.rut
+  }
+
+  return dv === calculatedDV ? null : error
 }
 
 /**

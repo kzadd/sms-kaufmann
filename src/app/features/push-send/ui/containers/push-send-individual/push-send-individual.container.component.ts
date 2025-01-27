@@ -5,7 +5,7 @@ import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
 
 import { PushSendIndividualForm, PushSendIndividualKey } from '@app/features/push-send/domain/push-send.entity'
 import { getFormControlErrorMessage } from '@app/shared/utils/form-error.utils'
-import { isRequired, maxLength } from '@app/shared/utils/validators.utils'
+import { isChileanRut, isRequired, maxLength } from '@app/shared/utils/validators.utils'
 
 const PUSH_SEND_INDIVIDUAL_ICONS = {
   cancelIcon: matCancel,
@@ -28,7 +28,7 @@ export class PushSendIndividualContainerComponent {
 
   form: FormGroup<PushSendIndividualForm> = this._formBuilder.group({
     app: this._formBuilder.control('', [isRequired]),
-    dni: this._formBuilder.control('', [isRequired]),
+    dni: this._formBuilder.control('', [isRequired, isChileanRut]),
     message: this._formBuilder.control('', [isRequired, maxLength(200)])
   })
 
