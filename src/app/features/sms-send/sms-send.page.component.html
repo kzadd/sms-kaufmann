@@ -7,7 +7,7 @@
   </p>
 
   <div class="sms-send__content">
-    <ul #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs sms-send__tabs" ngbNav>
+    <ul #nav="ngbNav" (navChange)="handleChangeTab()" [(activeId)]="activeTab" class="nav-tabs sms-send__tabs" ngbNav>
       <li [disabled]="loading()" [ngbNavItem]="'individual'">
         <button ngbNavLink class="sms-send__tab">Individual</button>
 

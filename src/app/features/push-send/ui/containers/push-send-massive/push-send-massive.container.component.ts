@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
+import { matCancel, matError, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
 import { take } from 'rxjs'
 
@@ -15,6 +15,7 @@ import { isRequired } from '@app/shared/utils/validators.utils'
 
 const PUSH_SEND_MASSIVE_ICONS = {
   cancelIcon: matCancel,
+  errorIcon: matError,
   sendIcon: matSend
 }
 
@@ -50,8 +51,14 @@ export class PushSendMassiveContainerComponent implements OnInit {
     }
 
     this._store.select(pushSendFeature.selectPushSendState).subscribe(state => {
-      if (!state.loading && state.applications.length) {
+      if (state.loading) {
+        this.form.disable()
+      } else {
         this.form.enable()
+
+        if (!state.applications.length) {
+          this.form.get('app')?.disable()
+        }
       }
     })
   }
@@ -64,12 +71,19 @@ export class PushSendMassiveContainerComponent implements OnInit {
     return getFormControlErrorMessage(control)
   }
 
+  handleCleanError(): void {
+    if (this.error()) {
+      this._store.dispatch(pushSendActions.clearError())
+    }
+  }
+
   handleClearForm(): void {
     this.form.reset()
     this._selectedFile = null
   }
 
   handleFileChange(event: Event): void {
+    this.handleCleanError()
     const files = (event.target as HTMLInputElement).files
 
     if (files && files.length) {
@@ -78,13 +92,11 @@ export class PushSendMassiveContainerComponent implements OnInit {
   }
 
   async handleSend(): Promise<void> {
-    if (this.form.valid && this._selectedFile) {
-      const { app } = this.form.getRawValue()
+    const { app } = this.form.getRawValue()
 
-      const base64File = await fileToBase64(
-        this._selectedFile,
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      )
+    if (app !== '' && this.form.valid && this._selectedFile) {
+      const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const base64File = await fileToBase64(this._selectedFile, MIME_TYPE)
 
       this._store.dispatch(pushSendActions.sendPushMassive({ pushSend: { app, file: base64File } }))
 

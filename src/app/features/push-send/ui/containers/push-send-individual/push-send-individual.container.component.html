@@ -3,21 +3,33 @@
     <div class="form-group">
       <label for="app" class="form-label">Aplicación</label>
 
-      <select [class.is-invalid]="getErrorMessage('app')" formControlName="app" id="app" name="app" class="form-select">
+      <select
+        (input)="handleCleanError()"
+        [class.is-invalid]="getErrorMessage('app')"
+        class="form-select"
+        formControlName="app"
+        id="app"
+        name="app"
+      >
         <option hidden selected value="">Seleccione una aplicación</option>
 
         @for (application of applications(); track $index) {
-          <option [value]="application.appId">{{ application.name }}</option>
+          <option [value]="application.appId">
+            {{ application.name }}
+          </option>
         }
       </select>
 
-      <div class="invalid-feedback">{{ getErrorMessage('app') }}</div>
+      <div class="invalid-feedback">
+        {{ getErrorMessage('app') }}
+      </div>
     </div>
 
     <div class="form-group">
       <label for="dni" class="form-label">Rut usuario</label>
 
       <input
+        (input)="handleCleanError()"
         [class.is-invalid]="getErrorMessage('dni')"
         class="form-control"
         formControlName="dni"
@@ -26,24 +38,36 @@
         placeholder="Ingrese el rut de usuario"
       />
 
-      <div class="invalid-feedback">{{ getErrorMessage('dni') }}</div>
+      <div class="invalid-feedback">
+        {{ getErrorMessage('dni') }}
+      </div>
     </div>
 
     <div class="form-group">
       <label for="message" class="form-label">Mensaje</label>
 
       <textarea
+        (input)="handleCleanError()"
         [class.is-invalid]="getErrorMessage('message')"
         class="form-control"
         formControlName="message"
         id="message"
-        rows="5"
         name="message"
         placeholder="Ingrese su mensaje"
+        rows="5"
       ></textarea>
 
-      <div class="invalid-feedback">{{ getErrorMessage('message') }}</div>
+      <div class="invalid-feedback">
+        {{ getErrorMessage('message') }}
+      </div>
     </div>
+
+    @if (error()) {
+      <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <ng-icon class="flex-shrink-0 me-2" name="errorIcon" />
+        En estos momentos tenemos problemas para disponibilizar la información. Por favor, consulta en unos minutos más.
+      </div>
+    }
   </form>
 
   <div class="push-send-individual__actions">

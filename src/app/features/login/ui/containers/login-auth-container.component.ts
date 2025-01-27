@@ -49,7 +49,9 @@ export class LoginAuthContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.select(loginFeature.selectLoading).subscribe(loading => {
-      if (!loading) {
+      if (loading) {
+        this.form.disable()
+      } else {
         this.form.enable()
       }
     })
@@ -63,6 +65,12 @@ export class LoginAuthContainerComponent implements OnInit {
     return getFormControlErrorMessage(control)
   }
 
+  handleCleanError(): void {
+    if (this.error()) {
+      this._store.dispatch(loginActions.clearError())
+    }
+  }
+
   handleClearForm(): void {
     this.form.reset()
   }
@@ -71,7 +79,6 @@ export class LoginAuthContainerComponent implements OnInit {
     const { password, username } = this.form.getRawValue()
 
     if (this.form.valid) {
-      this.form.disable()
       this._store.dispatch(loginActions.signIn({ login: { password, username } }))
 
       this._store

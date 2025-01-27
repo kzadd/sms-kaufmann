@@ -15,8 +15,17 @@
         type="file"
       />
 
-      <div class="invalid-feedback">{{ getErrorMessage('file') }}</div>
+      <div class="invalid-feedback">
+        {{ getErrorMessage('file') }}
+      </div>
     </div>
+
+    @if (error()) {
+      <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <ng-icon class="flex-shrink-0 me-2" name="errorIcon" />
+        En estos momentos tenemos problemas para disponibilizar la información. Por favor, consulta en unos minutos más.
+      </div>
+    }
   </form>
 
   <div class="sms-send-massive__actions">

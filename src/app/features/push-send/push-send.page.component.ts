@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap'
 import { Store } from '@ngrx/store'
 
+import { pushSendActions } from './application/push-send.actions'
 import { pushSendFeature } from './application/push-send.feature'
 import { PushSendIndividualContainerComponent } from './ui/containers/push-send-individual/push-send-individual.container.component'
 import { PushSendMassiveContainerComponent } from './ui/containers/push-send-massive/push-send-massive.container.component'
@@ -20,7 +21,14 @@ import { PushSendMassiveContainerComponent } from './ui/containers/push-send-mas
 export class PushSendPageComponent {
   private _store = inject(Store)
 
+  error = toSignal(this._store.select(pushSendFeature.selectError), { initialValue: null })
   loading = toSignal(this._store.select(pushSendFeature.selectLoading), { initialValue: false })
 
   activeTab = 'individual'
+
+  handleChangeTab(): void {
+    if (this.error()) {
+      this._store.dispatch(pushSendActions.clearError())
+    }
+  }
 }

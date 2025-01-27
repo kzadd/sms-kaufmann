@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
+import { matCancel, matError, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
 import { take } from 'rxjs'
 
@@ -14,6 +14,7 @@ import { isChileanPhone, isRequired, maxLength } from '@app/shared/utils/validat
 
 const SMS_SEND_INDIVIDUAL_ICONS = {
   cancelIcon: matCancel,
+  errorIcon: matError,
   sendIcon: matSend
 }
 
@@ -42,7 +43,9 @@ export class SmsSendIndividualContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.select(smsSendFeature.selectLoading).subscribe(loading => {
-      if (!loading) {
+      if (loading) {
+        this.form.disable()
+      } else {
         this.form.enable()
       }
     })
@@ -56,13 +59,18 @@ export class SmsSendIndividualContainerComponent implements OnInit {
     return getFormControlErrorMessage(control)
   }
 
+  handleCleanError(): void {
+    if (this.error()) {
+      this._store.dispatch(smsSendActions.clearError())
+    }
+  }
+
   handleClearForm(): void {
     this.form.reset()
   }
 
   handleSend(): void {
     if (this.form.valid) {
-      this.form.disable()
       this._store.dispatch(smsSendActions.sendSmsIndividual({ smsSend: this.form.getRawValue() }))
 
       this._store

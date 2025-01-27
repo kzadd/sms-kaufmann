@@ -4,6 +4,7 @@
       <label for="phone" class="form-label">Teléfono</label>
 
       <input
+        (input)="handleCleanError()"
         [class.is-invalid]="getErrorMessage('phone')"
         class="form-control"
         formControlName="phone"
@@ -12,24 +13,36 @@
         placeholder="Ingrese su teléfono"
       />
 
-      <div class="invalid-feedback">{{ getErrorMessage('phone') }}</div>
+      <div class="invalid-feedback">
+        {{ getErrorMessage('phone') }}
+      </div>
     </div>
 
     <div class="form-group">
       <label for="message" class="form-label">Mensaje</label>
 
       <textarea
+        (input)="handleCleanError()"
         [class.is-invalid]="getErrorMessage('message')"
         class="form-control"
         formControlName="message"
         id="message"
-        rows="5"
         name="message"
         placeholder="Ingrese su mensaje"
+        rows="5"
       ></textarea>
 
-      <div class="invalid-feedback">{{ getErrorMessage('message') }}</div>
+      <div class="invalid-feedback">
+        {{ getErrorMessage('message') }}
+      </div>
     </div>
+
+    @if (error()) {
+      <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <ng-icon class="flex-shrink-0 me-2" name="errorIcon" />
+        En estos momentos tenemos problemas para disponibilizar la información. Por favor, consulta en unos minutos más.
+      </div>
+    }
   </form>
 
   <div class="sms-send-individual__actions">

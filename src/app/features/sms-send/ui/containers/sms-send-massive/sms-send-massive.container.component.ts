@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
+import { matCancel, matError, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
 import { take } from 'rxjs'
 
@@ -15,6 +15,7 @@ import { isRequired } from '@app/shared/utils/validators.utils'
 
 const SMS_SEND_INDIVIDUAL_ICONS = {
   cancelIcon: matCancel,
+  errorIcon: matError,
   sendIcon: matSend
 }
 
@@ -44,7 +45,9 @@ export class SmsSendMassiveContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this._store.select(smsSendFeature.selectLoading).subscribe(loading => {
-      if (!loading) {
+      if (loading) {
+        this.form.disable()
+      } else {
         this.form.enable()
       }
     })
@@ -58,12 +61,20 @@ export class SmsSendMassiveContainerComponent implements OnInit {
     return getFormControlErrorMessage(control)
   }
 
+  handleCleanError(): void {
+    if (this.error()) {
+      this._store.dispatch(smsSendActions.clearError())
+    }
+  }
+
   handleClearForm(): void {
     this.form.reset()
     this._selectedFile = null
   }
 
   handleFileChange(event: Event): void {
+    this.handleCleanError()
+
     const files = (event.target as HTMLInputElement).files
 
     if (files && files.length) {
@@ -73,12 +84,9 @@ export class SmsSendMassiveContainerComponent implements OnInit {
 
   async handleSend(): Promise<void> {
     if (this.form.valid && this._selectedFile) {
-      const base64File = await fileToBase64(
-        this._selectedFile,
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      )
+      const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const base64File = await fileToBase64(this._selectedFile, MIME_TYPE)
 
-      this.form.disable()
       this._store.dispatch(smsSendActions.sendSmsMassive({ smsSend: { file: base64File } }))
 
       this._store

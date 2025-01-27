@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
+import { matCancel, matError, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
 import { take } from 'rxjs'
 
@@ -14,6 +14,7 @@ import { isChileanRut, isRequired, maxLength } from '@app/shared/utils/validator
 
 const PUSH_SEND_INDIVIDUAL_ICONS = {
   cancelIcon: matCancel,
+  errorIcon: matError,
   sendIcon: matSend
 }
 
@@ -48,8 +49,14 @@ export class PushSendIndividualContainerComponent implements OnInit {
     }
 
     this._store.select(pushSendFeature.selectPushSendState).subscribe(state => {
-      if (!state.loading && state.applications.length) {
+      if (state.loading) {
+        this.form.disable()
+      } else {
         this.form.enable()
+
+        if (!state.applications.length) {
+          this.form.get('app')?.disable()
+        }
       }
     })
   }
@@ -62,13 +69,20 @@ export class PushSendIndividualContainerComponent implements OnInit {
     return getFormControlErrorMessage(control)
   }
 
+  handleCleanError(): void {
+    if (this.error()) {
+      this._store.dispatch(pushSendActions.clearError())
+    }
+  }
+
   handleClearForm(): void {
     this.form.reset()
   }
 
   handleSend(): void {
-    if (this.form.valid) {
-      this.form.disable()
+    const { app } = this.form.getRawValue()
+
+    if (app !== '' && this.form.valid) {
       this._store.dispatch(pushSendActions.sendPushIndividual({ pushSend: this.form.getRawValue() }))
 
       this._store
