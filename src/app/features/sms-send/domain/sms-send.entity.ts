@@ -10,7 +10,7 @@ export type SmsSendIndividualForm = FormControlGroup<SmsSendIndividual>
 export type SmsSendIndividualKey = Extract<keyof SmsSendIndividual, string>
 
 export interface SmsSendMassive {
-  file: File | null
+  file: string
 }
 
 export type SmsSendMassiveForm = FormControlGroup<SmsSendMassive>

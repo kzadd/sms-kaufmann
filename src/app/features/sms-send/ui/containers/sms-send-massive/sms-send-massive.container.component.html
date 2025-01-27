@@ -4,6 +4,7 @@
       <label for="file" class="form-label">Archivo</label>
 
       <input
+        (change)="handleFileChange($event)"
         [class.is-invalid]="getErrorMessage('file')"
         accept=".csv,.xlsx,.xls"
         class="form-control"
