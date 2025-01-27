@@ -58,15 +58,20 @@
           </div>
         </div>
 
-        @if (errorMessage) {
+        @if (error()) {
           <div class="alert alert-danger d-flex align-items-center" role="alert">
             <ng-icon class="flex-shrink-0 me-2" name="errorIcon" />
             El usuario y/o contraseña no son correctos. Vuelve a intentarlo.
           </div>
         }
 
-        <button class="btn btn-primary w-100" type="submit">
-          <ng-icon name="loginIcon" />
+        <button class="btn btn-primary w-100" [disabled]="loading()" type="submit">
+          @if (loading()) {
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          } @else {
+            <ng-icon name="loginIcon" />
+          }
+
           Iniciar sesión
         </button>
       </form>

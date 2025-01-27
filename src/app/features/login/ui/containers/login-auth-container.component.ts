@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { matError, matLogin, matVisibility, matVisibilityOff } from '@ng-icons/material-icons/baseline'
+import { Store } from '@ngrx/store'
+import { take } from 'rxjs'
 
-import { DEFAULT_CREDENTIALS, TOKEN_KEYS, TOKENS } from '@app/shared/constants/app.constant'
 import { ROUTE_PATHS } from '@app/shared/constants/routes.constant'
-import { putCookie } from '@app/shared/utils/cookie.utils'
 import { getFormControlErrorMessage } from '@app/shared/utils/form-error.utils'
 import { isRequired } from '@app/shared/utils/validators.utils'
+import { loginActions } from '../../application/login.actions'
+import { loginFeature } from '../../application/login.feature'
 import { LoginAuthForm, LoginAuthKey } from '../../domain/login.entity'
 
 const LOGIN_ICONS = {
@@ -32,18 +35,24 @@ const LOGIN_ICONS = {
 export class LoginAuthContainerComponent implements OnInit {
   private _formBuilder = inject(NonNullableFormBuilder)
   private _router = inject(Router)
+  private _store = inject(Store)
 
-  errorMessage = false
+  error = toSignal(this._store.select(loginFeature.selectError), { initialValue: null })
+  loading = toSignal(this._store.select(loginFeature.selectLoading), { initialValue: false })
 
   form: FormGroup = this._formBuilder.group<LoginAuthForm>({
-    password: this._formBuilder.control(DEFAULT_CREDENTIALS.password, [isRequired]),
-    username: this._formBuilder.control(DEFAULT_CREDENTIALS.username, [isRequired])
+    password: this._formBuilder.control('', [isRequired]),
+    username: this._formBuilder.control('', [isRequired])
   })
 
   showPassword = false
 
   ngOnInit(): void {
-    this.form.valueChanges.subscribe(() => (this.errorMessage = false))
+    this._store.select(loginFeature.selectLoading).subscribe(loading => {
+      if (!loading) {
+        this.form.enable()
+      }
+    })
   }
 
   getErrorMessage(controlName: LoginAuthKey): string {
@@ -54,17 +63,27 @@ export class LoginAuthContainerComponent implements OnInit {
     return getFormControlErrorMessage(control)
   }
 
+  handleClearForm(): void {
+    this.form.reset()
+  }
+
   handleSignIn(): void {
     const { password, username } = this.form.getRawValue()
 
-    const isDefaultCredentials = password === DEFAULT_CREDENTIALS.password && username === DEFAULT_CREDENTIALS.username
+    if (this.form.valid) {
+      this.form.disable()
+      this._store.dispatch(loginActions.signIn({ login: { password, username } }))
 
-    if (isDefaultCredentials && this.form.valid) {
-      putCookie(TOKEN_KEYS.accessToken, TOKENS.accessToken)
-      putCookie(TOKEN_KEYS.refreshToken, TOKENS.refreshToken)
-      this._router.navigate([ROUTE_PATHS.dashboard])
+      this._store
+        .select(loginFeature.selectLoginState)
+        .pipe(take(2))
+        .subscribe(state => {
+          if (!state.loading && !state.error) {
+            this.handleClearForm()
+            this._router.navigate([ROUTE_PATHS.dashboard])
+          }
+        })
     } else {
-      this.errorMessage = true
       this.form.markAllAsTouched()
     }
   }
