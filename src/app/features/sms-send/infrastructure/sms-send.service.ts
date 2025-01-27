@@ -18,7 +18,8 @@ export class ApiSmsSendRepository implements SmsSendRepository {
 
   sendSmsIndividual(smsSend: SmsSendIndividual): Observable<ApiResponse> {
     const body = {
-      ...smsSend
+      fono: smsSend.phone,
+      mensaje: smsSend.message
     }
 
     return this._http.post(`${env.API_URL}/movistar/send-notification-movistar`, { body })
@@ -29,6 +30,6 @@ export class ApiSmsSendRepository implements SmsSendRepository {
       ...smsSend
     }
 
-    return this._http.post(`${env.API_URL}/movistar/send-notification-movistar`, { body })
+    return this._http.post(`${env.API_URL}`, { body })
   }
 }
