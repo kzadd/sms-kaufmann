@@ -40,8 +40,8 @@
         border-bottom: none;
 
         &.active {
-          background-color: $primary-main;
-          border-color: $primary-main;
+          background-color: get-color(blue, 300);
+          border-color: get-color(blue, 300);
           color: $white;
           font-weight: 500;
         }

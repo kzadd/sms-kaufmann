@@ -5,13 +5,9 @@ export const FULL_ROUTE_PATHS = {
     login: `/${ROUTE_PATHS.auth}/${ROUTE_PATHS.login}`
   },
   dashboard: {
-    root: `/${ROUTE_PATHS.dashboard}`
-  },
-  pushSend: {
-    root: `/${ROUTE_PATHS.dashboard}/${ROUTE_PATHS.pushSend}`
-  },
-  smsSend: {
-    root: `/${ROUTE_PATHS.dashboard}/${ROUTE_PATHS.smsSend}`
+    pushSend: `/${ROUTE_PATHS.dashboard}/${ROUTE_PATHS.pushSend}`,
+    root: `/${ROUTE_PATHS.dashboard}`,
+    smsSend: `/${ROUTE_PATHS.dashboard}/${ROUTE_PATHS.smsSend}`
   }
 }
 

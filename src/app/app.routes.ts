@@ -32,7 +32,7 @@ export const routes: Routes = [
   {
     path: ROUTE_PATHS.root,
     pathMatch: 'full',
-    redirectTo: FULL_ROUTE_PATHS.smsSend.root
+    redirectTo: FULL_ROUTE_PATHS.dashboard.smsSend
   },
   {
     canActivate: [authGuard],

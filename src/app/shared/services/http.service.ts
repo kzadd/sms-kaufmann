@@ -62,7 +62,14 @@ export class HttpService {
     const headers = this._createHeaders(restOptions)
     const data = body ? JSON.stringify(body) : undefined
 
-    return this._createRequest<T>({ data, headers, method, url })
+    const requestOptions: RequestOptions = {
+      data,
+      headers,
+      method,
+      url
+    }
+
+    return this._createRequest<T>(requestOptions)
   }
 
   /**
