@@ -5,6 +5,7 @@ import { PushSendState } from '../domain/push-send.entity'
 import { pushSendActions } from './push-send.actions'
 
 const initialState: PushSendState = {
+  applications: [],
   error: null,
   loading: false
 }
@@ -28,6 +29,13 @@ export const pushSendFeature = createFeature({
   name: 'pushSend',
   reducer: createReducer(
     initialState,
+    on(pushSendActions.getApplications, defaultLoadingState),
+    on(pushSendActions.getApplicationsFailure, defaultErrorState),
+    on(pushSendActions.getApplicationsSuccess, (state, payload) => ({
+      ...state,
+      applications: payload.applications,
+      loading: false
+    })),
     on(pushSendActions.clearError, state => ({
       ...state,
       error: null

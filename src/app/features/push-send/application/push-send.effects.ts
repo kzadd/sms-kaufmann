@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr'
 import { catchError, concatMap, map, of } from 'rxjs'
 
 import { createError } from '@app/shared/exceptions/create-error.exception'
+import { pushSendApplicationsAdapter } from '../infrastructure/push-send.adapter'
 import { ApiPushSendRepository } from '../infrastructure/push-send.service'
 import { pushSendActions } from './push-send.actions'
 
@@ -13,6 +14,32 @@ export class PushSendEffect {
   private _actions = inject(Actions)
   private _apiPushSendRepository = inject(ApiPushSendRepository)
   private _toast = inject(ToastrService)
+
+  /**
+   * Effect that handles get applications thunk.
+   */
+  getApplicationsThunk$ = createEffect(() => {
+    return this._actions.pipe(
+      ofType(pushSendActions.getApplications),
+      concatMap(() => {
+        return this._apiPushSendRepository.getApplications().pipe(
+          map(response => {
+            return pushSendActions.getApplicationsSuccess({ applications: pushSendApplicationsAdapter(response.data) })
+          }),
+          catchError((error: HttpErrorResponse) => {
+            const failureResponse = {
+              error: createError({
+                originalError: error,
+                reason: 'SOMETHING_WENT_WRONG_ERROR'
+              }).toObject()
+            }
+
+            return of(pushSendActions.getApplicationsFailure(failureResponse))
+          })
+        )
+      })
+    )
+  })
 
   /**
    * Effect that handles push send individual thunk.

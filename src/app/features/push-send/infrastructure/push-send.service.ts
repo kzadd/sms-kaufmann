@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { env } from '@app/shared/configs/environment.config'
 import { HttpService } from '@app/shared/services/http.service'
 import { ApiResponse } from '@app/shared/types/http.types'
-import { PushSendIndividual, PushSendMassive } from '../domain/push-send.entity'
+import { PushSendApplicationApiResponse, PushSendIndividual, PushSendMassive } from '../domain/push-send.entity'
 import { PushSendRepository } from '../domain/push-send.repository'
 
 /**
@@ -15,6 +15,10 @@ import { PushSendRepository } from '../domain/push-send.repository'
 })
 export class ApiPushSendRepository implements PushSendRepository {
   private _http = inject(HttpService)
+
+  getApplications(): Observable<ApiResponse<PushSendApplicationApiResponse>> {
+    return this._http.get(`${env.API_URL}/config-property`)
+  }
 
   sendPushIndividual(pushSend: PushSendIndividual): Observable<ApiResponse> {
     const body = {
