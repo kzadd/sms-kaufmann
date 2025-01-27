@@ -8,16 +8,16 @@
 
   <div class="sms-send__content">
     <ul #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs sms-send__tabs" ngbNav>
-      <li [ngbNavItem]="'individual'">
-        <button [disabled]="loading()" ngbNavLink class="sms-send__tab">Individual</button>
+      <li [disabled]="loading()" [ngbNavItem]="'individual'">
+        <button ngbNavLink class="sms-send__tab">Individual</button>
 
         <ng-template ngbNavContent>
           <app-sms-send-individual-container />
         </ng-template>
       </li>
 
-      <li [ngbNavItem]="'masivo'">
-        <button [disabled]="loading()" ngbNavLink class="sms-send__tab">Masivo</button>
+      <li [disabled]="loading()" [ngbNavItem]="'masivo'">
+        <button ngbNavLink class="sms-send__tab">Masivo</button>
 
         <ng-template ngbNavContent>
           <app-sms-send-massive-container />
