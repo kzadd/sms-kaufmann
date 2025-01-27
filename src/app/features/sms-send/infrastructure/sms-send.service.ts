@@ -27,9 +27,9 @@ export class ApiSmsSendRepository implements SmsSendRepository {
 
   sendSmsMassive(smsSend: SmsSendMassive): Observable<ApiResponse> {
     const body = {
-      ...smsSend
+      base64: smsSend.file
     }
 
-    return this._http.post(`${env.API_URL}`, { body })
+    return this._http.post(`${env.API_URL}/movistar/send-notification-movistar-masivo`, { body })
   }
 }
