@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store'
 import { pushSendActions } from '@app/features/push-send/application/push-send.actions'
 import { pushSendFeature } from '@app/features/push-send/application/push-send.feature'
 import { PushSendMassiveForm, PushSendMassiveKey } from '@app/features/push-send/domain/push-send.entity'
+import { fileToBase64 } from '@app/shared/utils/base64.utils'
 import { getFormControlErrorMessage } from '@app/shared/utils/form-error.utils'
 import { isRequired } from '@app/shared/utils/validators.utils'
 
@@ -37,8 +38,10 @@ export class PushSendMassiveContainerComponent implements OnInit {
 
   form: FormGroup = this._formBuilder.group<PushSendMassiveForm>({
     app: this._formBuilder.control('', [isRequired]),
-    file: this._formBuilder.control(null, [isRequired])
+    file: this._formBuilder.control('', [isRequired])
   })
+
+  private _selectedFile: File | null = null
 
   ngOnInit(): void {
     if (!this.applications().length) {
@@ -56,13 +59,27 @@ export class PushSendMassiveContainerComponent implements OnInit {
 
   handleClearForm(): void {
     this.form.reset()
+    this._selectedFile = null
   }
 
-  handleSend(): void {
-    const { app, file } = this.form.getRawValue()
+  handleFileChange(event: Event): void {
+    const files = (event.target as HTMLInputElement).files
 
-    if (this.form.valid) {
-      console.log('enviando', { app, file })
+    if (files && files.length) {
+      this._selectedFile = files[0]
+    }
+  }
+
+  async handleSend(): Promise<void> {
+    if (this.form.valid && this._selectedFile) {
+      const app = this.form.getRawValue()
+
+      const base64File = await fileToBase64(
+        this._selectedFile,
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      )
+
+      this._store.dispatch(pushSendActions.sendPushMassive({ pushSend: { app, file: base64File } }))
     } else {
       this.form.markAllAsTouched()
     }

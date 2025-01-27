@@ -28,7 +28,7 @@ export type PushSendIndividualKey = Extract<keyof PushSendIndividual, string>
 
 export interface PushSendMassive {
   app: string
-  file: File | null
+  file: string
 }
 
 export type PushSendMassiveForm = FormControlGroup<PushSendMassive>
