@@ -4,6 +4,7 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
+import { take } from 'rxjs'
 
 import { pushSendActions } from '@app/features/push-send/application/push-send.actions'
 import { pushSendFeature } from '@app/features/push-send/application/push-send.feature'
@@ -47,6 +48,12 @@ export class PushSendMassiveContainerComponent implements OnInit {
     if (!this.applications().length) {
       this._store.dispatch(pushSendActions.getApplications())
     }
+
+    this._store.select(pushSendFeature.selectPushSendState).subscribe(state => {
+      if (!state.loading && state.applications.length) {
+        this.form.enable()
+      }
+    })
   }
 
   getErrorMessage(controlName: PushSendMassiveKey): string {
@@ -80,6 +87,15 @@ export class PushSendMassiveContainerComponent implements OnInit {
       )
 
       this._store.dispatch(pushSendActions.sendPushMassive({ pushSend: { app, file: base64File } }))
+
+      this._store
+        .select(pushSendFeature.selectPushSendState)
+        .pipe(take(2))
+        .subscribe(state => {
+          if (!state.loading && !state.error) {
+            this.handleClearForm()
+          }
+        })
     } else {
       this.form.markAllAsTouched()
     }

@@ -34,12 +34,17 @@
   </form>
 
   <div class="push-send-massive__actions">
-    <button (click)="handleSend()" class="btn btn-primary">
-      <ng-icon name="sendIcon" />
+    <button (click)="handleSend()" [disabled]="loading()" class="btn btn-primary">
+      @if (loading() && applications().length) {
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+      } @else {
+        <ng-icon name="sendIcon" />
+      }
+
       Enviar Push
     </button>
 
-    <button (click)="handleClearForm()" class="btn btn-secondary">
+    <button (click)="handleClearForm()" [disabled]="loading()" class="btn btn-secondary">
       <ng-icon name="cancelIcon" />
       Limpiar formulario
     </button>
