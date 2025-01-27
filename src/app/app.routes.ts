@@ -4,7 +4,7 @@ import { authGuard } from './core/guards/auth.guard'
 import { FULL_ROUTE_PATHS } from './shared/constants/app.constant'
 import { ROUTE_PATHS } from './shared/constants/routes.constant'
 
-const BrandLayout = () => import('./layouts/brand-layout.component').then(m => m.BrandLayoutComponent)
+const BrandLayout = () => import('./layouts/brand.layout.component').then(m => m.BrandLayoutComponent)
 const LoginPage = () => import('./features/login').then(m => m.LoginPage)
 const NotFoundPage = () => import('./features/not-found').then(m => m.NotFoundPage)
 const PushSendPage = () => import('./features/push-send').then(m => m.PushSendPage)

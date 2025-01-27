@@ -19,8 +19,8 @@ const SIDEBAR_ICONS = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon, RouterLink],
   selector: 'app-sidebar-container',
-  styleUrl: './sidebar-container.component.scss',
-  templateUrl: './sidebar-container.component.html'
+  styleUrl: './sidebar.container.component.scss',
+  templateUrl: './sidebar.container.component.html'
 })
 export class SidebarContainerComponent implements OnInit {
   private _router = inject(Router)

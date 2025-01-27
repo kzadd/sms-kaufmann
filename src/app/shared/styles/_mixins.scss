@@ -1,8 +1,0 @@
-/**
- * Export a map to CSS variables.
- */
-@mixin export-to-css-variables($map, $prefix: '') {
-  @each $key, $value in $map {
-    --#{$prefix}-#{$key}: #{$value};
-  }
-}

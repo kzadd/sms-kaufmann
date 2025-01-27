@@ -17,11 +17,11 @@
   .ngx-toastr {
     @include toast-icon('https://fonts.gstatic.com/s/i/materialicons/notifications/v12/24px.svg');
     align-items: center;
-    background-color: var(--kauf-black);
+    background-color: $black;
     background-image: none;
     border-radius: 0.5rem;
-    box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1);
-    color: var(--kauf-white);
+    box-shadow: $base-shadow;
+    color: $text-light;
     column-gap: 1rem;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -35,20 +35,20 @@
 
     &.toast-error {
       @include toast-icon('https://fonts.gstatic.com/s/i/materialicons/error/v12/24px.svg');
-      background-color: var(--kauf-red-100);
-      color: var(--kauf-red-500);
+      background-color: $error-light;
+      color: $error-dark;
     }
 
     &.toast-success {
       @include toast-icon('https://fonts.gstatic.com/s/i/materialicons/check_circle/v12/24px.svg');
-      background-color: var(--kauf-green-100);
-      color: var(--kauf-green-500);
+      background-color: $success-light;
+      color: $success-dark;
     }
 
     &.toast-warning {
       @include toast-icon('https://fonts.gstatic.com/s/i/materialicons/warning/v12/24px.svg');
-      background-color: var(--kauf-yellow-100);
-      color: var(--kauf-yellow-500);
+      background-color: $warning-light;
+      color: $warning-dark;
     }
 
     .toast-title {

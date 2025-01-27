@@ -20,8 +20,8 @@ const TOPBAR_ICONS = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon, ResponsiveDirective, RouterLink],
   selector: 'app-topbar-container',
-  styleUrl: './topbar-container.component.scss',
-  templateUrl: './topbar-container.component.html',
+  styleUrl: './topbar.container.component.scss',
+  templateUrl: './topbar.container.component.html',
   viewProviders: [provideIcons(TOPBAR_ICONS)]
 })
 export class TopbarContainerComponent {

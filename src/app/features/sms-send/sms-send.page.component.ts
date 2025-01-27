@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   selector: 'app-sms-send-page',
-  template: `<div>sms-send</div>`
+  styleUrl: './sms-send.page.component.scss',
+  templateUrl: './sms-send.page.component.html'
 })
 export class SmsSendPageComponent {}

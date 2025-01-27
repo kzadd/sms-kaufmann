@@ -1,0 +1,24 @@
+@use 'shared/styles/theme' as *;
+
+.sms-send {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: $base-container-spacing;
+
+  .sms-send__title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.1rem;
+    margin: 0;
+  }
+
+  .sms-send__description {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  @media (max-width: $base-breakpoint-md) {
+    padding: 1rem;
+  }
+}

@@ -20,6 +20,11 @@ export const FULL_ROUTE_PATHS = {
   }
 }
 
+export enum SENDING_MODE {
+  INDIVIDUAL = 'individual',
+  MASSIVE = 'massive'
+}
+
 export const TOKEN_KEYS = {
   accessToken: 'access_token',
   refreshToken: 'refresh_token'

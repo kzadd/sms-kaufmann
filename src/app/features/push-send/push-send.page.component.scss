@@ -1,0 +1,24 @@
+@use 'shared/styles/theme' as *;
+
+.push-send {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: $base-container-spacing;
+
+  .push-send__title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.1rem;
+    margin: 0;
+  }
+
+  .push-send__description {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  @media (max-width: $base-breakpoint-md) {
+    padding: 1rem;
+  }
+}

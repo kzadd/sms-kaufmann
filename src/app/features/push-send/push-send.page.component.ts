@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   selector: 'app-push-send-page',
-  template: `<div>push-send</div>`
+  styleUrl: './push-send.page.component.scss',
+  templateUrl: './push-send.page.component.html'
 })
 export class PushSendPageComponent {}

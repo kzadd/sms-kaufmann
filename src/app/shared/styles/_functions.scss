@@ -1,15 +1,17 @@
-@use 'sass:color';
+@use 'sass:map';
 
-/**
- * Shade a color.
- */
-@function shade($color, $percentage) {
-  @return color.mix(black, $color, $percentage);
-}
+@use './colors' as *;
 
-/**
- * Tint a color.
- */
-@function tint($color, $percentage) {
-  @return color.mix(white, $color, $percentage);
+@function get-color($name, $shade) {
+  @if map.has-key($colors, $name) {
+    $color-map: map.get($colors, $name);
+
+    @if map.has-key($color-map, $shade) {
+      @return map.get($color-map, $shade);
+    }
+  }
+
+  @warn "Color `#{$name}` or shade `#{$shade}` not found.";
+
+  @return null;
 }

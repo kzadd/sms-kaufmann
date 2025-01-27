@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http'
 
-export interface ApiResponse<T> extends NetworkResponse<ServiceResponse<T>> {}
+export interface ApiResponse<T = unknown> extends NetworkResponse<ServiceResponse<T>> {}
 export type HttpMethod = 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT'
 
 export interface NetworkResponse<T> {

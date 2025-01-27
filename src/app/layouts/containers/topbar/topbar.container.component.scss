@@ -1,11 +1,13 @@
+@use 'shared/styles/theme' as *;
+
 .topbar {
   align-items: center;
-  background-color: #ffffff; // TODO: change to theme
-  box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1); // TODO: change to theme
+  background-color: $white;
+  box-shadow: $base-shadow;
   display: flex;
   gap: 1rem;
-  min-height: 5rem; // TODO: change to theme
-  padding: 0 2rem; // TODO: change to theme
+  min-height: $base-topbar-height;
+  padding: 0 $base-container-spacing;
   position: relative;
 
   .topbar__logo-link {
@@ -43,13 +45,13 @@
     font-size: 0.875rem;
     font-weight: 600;
     gap: 0.5rem;
-    height: calc(5rem - 1rem); // TODO: change to theme
+    height: calc($base-topbar-height - 1rem);
     margin-left: auto;
 
     .topbar__dropdown {
-      background-color: #ffffff; // TODO: change to theme
+      background-color: $white;
       border-radius: 0.5rem;
-      box-shadow: 0 0 0.375rem 0 rgba(0, 0, 0, 0.1); // TODO: change to theme
+      box-shadow: $base-shadow;
       display: none;
       min-width: 12rem;
       overflow: hidden;
