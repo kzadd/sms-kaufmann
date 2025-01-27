@@ -34,7 +34,7 @@ export class SmsSendIndividualContainerComponent {
   error = toSignal(this._store.select(smsSendFeature.selectError), { initialValue: null })
   loading = toSignal(this._store.select(smsSendFeature.selectLoading), { initialValue: false })
 
-  form: FormGroup<SmsSendIndividualForm> = this._formBuilder.group({
+  form: FormGroup = this._formBuilder.group<SmsSendIndividualForm>({
     message: this._formBuilder.control('testing', [isRequired, maxLength(200)]),
     phone: this._formBuilder.control('56931833042', [isRequired, isChileanPhone])
   })

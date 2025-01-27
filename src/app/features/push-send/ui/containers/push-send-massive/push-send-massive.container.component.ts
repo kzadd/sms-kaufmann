@@ -37,7 +37,7 @@ export class PushSendMassiveContainerComponent implements OnInit {
 
   form: FormGroup = this._formBuilder.group<PushSendMassiveForm>({
     app: this._formBuilder.control('', [isRequired]),
-    file: this._formBuilder.control<File | null>(null, [isRequired])
+    file: this._formBuilder.control(null, [isRequired])
   })
 
   ngOnInit(): void {

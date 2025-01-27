@@ -26,8 +26,8 @@ const SMS_SEND_INDIVIDUAL_ICONS = {
 export class SmsSendMassiveContainerComponent {
   private _formBuilder = inject(NonNullableFormBuilder)
 
-  form: FormGroup<SmsSendMassiveForm> = this._formBuilder.group<SmsSendMassiveForm>({
-    file: this._formBuilder.control<File | null>(null, [isRequired])
+  form: FormGroup = this._formBuilder.group<SmsSendMassiveForm>({
+    file: this._formBuilder.control(null, [isRequired])
   })
 
   getErrorMessage(controlName: SmsSendMassiveKey): string {
