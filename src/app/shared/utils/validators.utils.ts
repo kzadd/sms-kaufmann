@@ -7,7 +7,7 @@ const errorMessages = {
   number: 'Este campo solo acepta números.',
   phoneNumber: 'Ingrese un número de teléfono válido',
   required: 'Este campo es obligatorio.',
-  rut: 'Ingrese un RUT válido.'
+  rut: 'Ingrese un RUT válido sin puntos y con guión.'
 }
 
 /**
@@ -29,19 +29,18 @@ export const isChileanPhone: ValidatorFn = (control: AbstractControl): Validatio
 
 /**
  * Custom validator to check if input value is a valid Chilean RUT.
- * Format: 12345678-9 or 12.345.678-9
+ * Format: 12345678-9
  */
 export const isChileanRut: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   if (!control.value) return null
 
-  const cleanRut = control.value.toString().replace(/[.-]/g, '').toUpperCase()
+  const rutRegex = /^[0-9]{7,8}-[0-9K]$/
 
-  if (!/^[0-9]{7,8}[0-9K]$/.test(cleanRut)) {
+  if (!rutRegex.test(control.value)) {
     return { rut: errorMessages.rut }
   }
 
-  const rutDigits = cleanRut.slice(0, -1)
-  const dv = cleanRut.slice(-1)
+  const [rutDigits, dv] = control.value.split('-')
 
   let sum = 0
   let multiplier = 2

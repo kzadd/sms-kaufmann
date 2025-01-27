@@ -22,10 +22,11 @@ export class ApiPushSendRepository implements PushSendRepository {
 
   sendPushIndividual(pushSend: PushSendIndividual): Observable<ApiResponse> {
     const body = {
-      ...pushSend
+      app_id: pushSend.app,
+      mensaje: pushSend.message
     }
 
-    return this._http.post(`${env.API_URL}/movistar/send-notification-movistar`, { body })
+    return this._http.post(`${env.API_URL}/one-signal/send-notification/${pushSend.dni}`, { body })
   }
 
   sendPushMassive(pushSend: PushSendMassive): Observable<ApiResponse> {

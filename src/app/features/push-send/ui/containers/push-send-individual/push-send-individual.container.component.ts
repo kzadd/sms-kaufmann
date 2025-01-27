@@ -37,8 +37,8 @@ export class PushSendIndividualContainerComponent implements OnInit {
 
   form: FormGroup = this._formBuilder.group<PushSendIndividualForm>({
     app: this._formBuilder.control('', [isRequired]),
-    dni: this._formBuilder.control('', [isRequired, isChileanRut]),
-    message: this._formBuilder.control('', [isRequired, maxLength(200)])
+    dni: this._formBuilder.control('15732684-8', [isRequired, isChileanRut]),
+    message: this._formBuilder.control('testing', [isRequired, maxLength(200)])
   })
 
   ngOnInit(): void {
@@ -60,10 +60,8 @@ export class PushSendIndividualContainerComponent implements OnInit {
   }
 
   handleSend(): void {
-    const { app, dni, message } = this.form.getRawValue()
-
     if (this.form.valid) {
-      console.log('enviando', { app, dni, message })
+      this._store.dispatch(pushSendActions.sendPushIndividual({ pushSend: this.form.getRawValue() }))
     } else {
       this.form.markAllAsTouched()
     }
