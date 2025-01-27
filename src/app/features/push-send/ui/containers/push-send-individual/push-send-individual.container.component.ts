@@ -4,6 +4,7 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
+import { take } from 'rxjs'
 
 import { pushSendActions } from '@app/features/push-send/application/push-send.actions'
 import { pushSendFeature } from '@app/features/push-send/application/push-send.feature'
@@ -37,14 +38,20 @@ export class PushSendIndividualContainerComponent implements OnInit {
 
   form: FormGroup = this._formBuilder.group<PushSendIndividualForm>({
     app: this._formBuilder.control('', [isRequired]),
-    dni: this._formBuilder.control('15732684-8', [isRequired, isChileanRut]),
-    message: this._formBuilder.control('testing', [isRequired, maxLength(200)])
+    dni: this._formBuilder.control('', [isRequired, isChileanRut]),
+    message: this._formBuilder.control('', [isRequired, maxLength(200)])
   })
 
   ngOnInit(): void {
     if (!this.applications().length) {
       this._store.dispatch(pushSendActions.getApplications())
     }
+
+    this._store.select(pushSendFeature.selectPushSendState).subscribe(state => {
+      if (!state.loading && state.applications.length) {
+        this.form.enable()
+      }
+    })
   }
 
   getErrorMessage(controlName: PushSendIndividualKey): string {
@@ -61,7 +68,17 @@ export class PushSendIndividualContainerComponent implements OnInit {
 
   handleSend(): void {
     if (this.form.valid) {
+      this.form.disable()
       this._store.dispatch(pushSendActions.sendPushIndividual({ pushSend: this.form.getRawValue() }))
+
+      this._store
+        .select(pushSendFeature.selectPushSendState)
+        .pipe(take(2))
+        .subscribe(state => {
+          if (!state.loading && !state.error) {
+            this.handleClearForm()
+          }
+        })
     } else {
       this.form.markAllAsTouched()
     }

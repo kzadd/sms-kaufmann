@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
 import { Store } from '@ngrx/store'
+import { take } from 'rxjs'
 
 import { smsSendActions } from '@app/features/sms-send/application/sms-send.actions'
 import { smsSendFeature } from '@app/features/sms-send/application/sms-send.feature'
@@ -27,7 +28,7 @@ const SMS_SEND_INDIVIDUAL_ICONS = {
   templateUrl: './sms-send-individual.container.component.html',
   viewProviders: [provideIcons(SMS_SEND_INDIVIDUAL_ICONS)]
 })
-export class SmsSendIndividualContainerComponent {
+export class SmsSendIndividualContainerComponent implements OnInit {
   private _formBuilder = inject(NonNullableFormBuilder)
   private _store = inject(Store)
 
@@ -35,9 +36,17 @@ export class SmsSendIndividualContainerComponent {
   loading = toSignal(this._store.select(smsSendFeature.selectLoading), { initialValue: false })
 
   form: FormGroup = this._formBuilder.group<SmsSendIndividualForm>({
-    message: this._formBuilder.control('testing', [isRequired, maxLength(200)]),
-    phone: this._formBuilder.control('56931833042', [isRequired, isChileanPhone])
+    message: this._formBuilder.control('', [isRequired, maxLength(200)]),
+    phone: this._formBuilder.control('', [isRequired, isChileanPhone])
   })
+
+  ngOnInit(): void {
+    this._store.select(smsSendFeature.selectLoading).subscribe(loading => {
+      if (!loading) {
+        this.form.enable()
+      }
+    })
+  }
 
   getErrorMessage(controlName: SmsSendIndividualKey): string {
     const control = this.form.get(controlName)
@@ -53,7 +62,17 @@ export class SmsSendIndividualContainerComponent {
 
   handleSend(): void {
     if (this.form.valid) {
+      this.form.disable()
       this._store.dispatch(smsSendActions.sendSmsIndividual({ smsSend: this.form.getRawValue() }))
+
+      this._store
+        .select(smsSendFeature.selectSmsSendState)
+        .pipe(take(2))
+        .subscribe(state => {
+          if (!state.loading && !state.error) {
+            this.handleClearForm()
+          }
+        })
     } else {
       this.form.markAllAsTouched()
     }

@@ -9,7 +9,7 @@
   <div class="push-send__content">
     <ul #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs push-send__tabs" ngbNav>
       <li [ngbNavItem]="'individual'">
-        <button ngbNavLink class="push-send__tab">Individual</button>
+        <button [disabled]="loading()" ngbNavLink class="push-send__tab">Individual</button>
 
         <ng-template ngbNavContent>
           <app-push-send-individual-container />
@@ -17,7 +17,7 @@
       </li>
 
       <li [ngbNavItem]="'masivo'">
-        <button ngbNavLink class="push-send__tab">Masivo</button>
+        <button [disabled]="loading()" ngbNavLink class="push-send__tab">Masivo</button>
 
         <ng-template ngbNavContent>
           <app-push-send-massive-container />

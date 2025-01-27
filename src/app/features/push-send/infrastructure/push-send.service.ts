@@ -31,9 +31,10 @@ export class ApiPushSendRepository implements PushSendRepository {
 
   sendPushMassive(pushSend: PushSendMassive): Observable<ApiResponse> {
     const body = {
-      ...pushSend
+      app_id: pushSend.app,
+      base64: pushSend.file
     }
 
-    return this._http.post(`${env.API_URL}/movistar/send-notification-movistar`, { body })
+    return this._http.post(`${env.API_URL}/one-signal/send-notification-masivo`, { body })
   }
 }

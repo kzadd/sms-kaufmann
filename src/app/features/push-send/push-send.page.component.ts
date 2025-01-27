@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap'
+import { Store } from '@ngrx/store'
 
+import { pushSendFeature } from './application/push-send.feature'
 import { PushSendIndividualContainerComponent } from './ui/containers/push-send-individual/push-send-individual.container.component'
 import { PushSendMassiveContainerComponent } from './ui/containers/push-send-massive/push-send-massive.container.component'
 
@@ -15,5 +18,9 @@ import { PushSendMassiveContainerComponent } from './ui/containers/push-send-mas
   templateUrl: './push-send.page.component.html'
 })
 export class PushSendPageComponent {
+  private _store = inject(Store)
+
+  loading = toSignal(this._store.select(pushSendFeature.selectLoading), { initialValue: false })
+
   activeTab = 'individual'
 }

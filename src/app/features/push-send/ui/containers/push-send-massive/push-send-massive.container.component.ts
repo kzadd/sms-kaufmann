@@ -72,7 +72,7 @@ export class PushSendMassiveContainerComponent implements OnInit {
 
   async handleSend(): Promise<void> {
     if (this.form.valid && this._selectedFile) {
-      const app = this.form.getRawValue()
+      const { app } = this.form.getRawValue()
 
       const base64File = await fileToBase64(
         this._selectedFile,
