@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { matCancel, matSend } from '@ng-icons/material-icons/baseline'
+import { Store } from '@ngrx/store'
 
+import { pushSendActions } from '@app/features/push-send/application/push-send.actions'
+import { pushSendFeature } from '@app/features/push-send/application/push-send.feature'
 import { PushSendIndividualForm, PushSendIndividualKey } from '@app/features/push-send/domain/push-send.entity'
 import { getFormControlErrorMessage } from '@app/shared/utils/form-error.utils'
 import { isChileanRut, isRequired, maxLength } from '@app/shared/utils/validators.utils'
@@ -23,14 +27,25 @@ const PUSH_SEND_INDIVIDUAL_ICONS = {
   templateUrl: './push-send-individual.container.component.html',
   viewProviders: [provideIcons(PUSH_SEND_INDIVIDUAL_ICONS)]
 })
-export class PushSendIndividualContainerComponent {
+export class PushSendIndividualContainerComponent implements OnInit {
   private _formBuilder = inject(NonNullableFormBuilder)
+  private _store = inject(Store)
 
-  form: FormGroup<PushSendIndividualForm> = this._formBuilder.group({
+  applications = toSignal(this._store.select(pushSendFeature.selectApplications), { initialValue: [] })
+  error = toSignal(this._store.select(pushSendFeature.selectError), { initialValue: null })
+  loading = toSignal(this._store.select(pushSendFeature.selectLoading), { initialValue: false })
+
+  form: FormGroup = this._formBuilder.group<PushSendIndividualForm>({
     app: this._formBuilder.control('', [isRequired]),
     dni: this._formBuilder.control('', [isRequired, isChileanRut]),
     message: this._formBuilder.control('', [isRequired, maxLength(200)])
   })
+
+  ngOnInit(): void {
+    if (!this.applications().length) {
+      this._store.dispatch(pushSendActions.getApplications())
+    }
+  }
 
   getErrorMessage(controlName: PushSendIndividualKey): string {
     const control = this.form.get(controlName)

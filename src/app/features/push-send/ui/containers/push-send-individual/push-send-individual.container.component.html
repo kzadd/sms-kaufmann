@@ -5,9 +5,10 @@
 
       <select [class.is-invalid]="getErrorMessage('app')" formControlName="app" id="app" name="app" class="form-select">
         <option hidden selected value="">Seleccione una aplicación</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
+
+        @for (application of applications(); track $index) {
+          <option [value]="application.appId">{{ application.name }}</option>
+        }
       </select>
 
       <div class="invalid-feedback">{{ getErrorMessage('app') }}</div>
