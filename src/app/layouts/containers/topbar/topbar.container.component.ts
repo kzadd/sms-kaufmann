@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router'
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import { matAccountCircle, matLogout, matMenu } from '@ng-icons/material-icons/baseline'
 
-import { DEFAULT_CREDENTIALS, FULL_ROUTE_PATHS, TOKEN_KEYS } from '@app/shared/constants/app.constant'
+import { FULL_ROUTE_PATHS, TOKEN_KEYS } from '@app/shared/constants/app.constant'
 import { ResponsiveDirective } from '@app/shared/directives/responsive.directive'
 import { deleteCookie } from '@app/shared/utils/cookie.utils'
 
@@ -30,11 +30,10 @@ export class TopbarContainerComponent {
   @Input() dropdownOpen = false
   @Output() toggleSidebar = new EventEmitter<void>()
 
-  profileName: string = DEFAULT_CREDENTIALS.username
+  profileName = 'Usuario'
 
   handleLogout(): void {
     deleteCookie(TOKEN_KEYS.accessToken)
-    deleteCookie(TOKEN_KEYS.refreshToken)
     this._router.navigate([FULL_ROUTE_PATHS.auth.login])
   }
 

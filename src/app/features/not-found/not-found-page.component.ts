@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-import { Error404ContainerComponent } from './interfaces/containers/error-404-container.component'
+import { Error404ContainerComponent } from './ui/containers/error-404-container.component'
 
 /**
  * Not found page.

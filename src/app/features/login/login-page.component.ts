@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-import { LoginAuthContainerComponent } from './interfaces/containers/login-auth-container.component'
+import { LoginAuthContainerComponent } from './ui/containers/login-auth-container.component'
 
 /**
  * Login page.

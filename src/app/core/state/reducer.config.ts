@@ -1,3 +1,4 @@
+import { loginFeature } from '@app/features/login'
 import { pushSendFeature } from '@app/features/push-send'
 import { smsSendFeature } from '@app/features/sms-send'
 
@@ -6,6 +7,7 @@ import { smsSendFeature } from '@app/features/sms-send'
  * Manages the entire application state through NgRx store.
  */
 export const reducer = {
+  login: loginFeature.reducer,
   pushSend: pushSendFeature.reducer,
   smsSend: smsSendFeature.reducer
 }
